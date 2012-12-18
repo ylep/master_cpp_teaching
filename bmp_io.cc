@@ -1,3 +1,6 @@
+// Reference used for the BMP file format(s):
+// http://www.fileformat.info/format/bmp/egff.htm
+
 #include "bmp_io.hh"
 
 #include <cassert>
