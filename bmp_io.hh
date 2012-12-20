@@ -10,6 +10,7 @@ public:
   /* Load the named BMP file. In case of failure a message is printed and the
      program is exited. */
   explicit BmpData(std::string const &file_name);
+  BmpData(size_t width, size_t height);
   ~BmpData();
 
   size_t width() const {return m_width;};
@@ -17,6 +18,8 @@ public:
 
   const unsigned char * data() const {return m_data;};
   unsigned char * data() {return m_data;};
+
+  bool write_file(std::string const &file_name) const;
 
 private:
   size_t m_width, m_height;

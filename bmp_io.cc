@@ -76,6 +76,12 @@ namespace {
 } // empty namespace
 
 
+BmpData::~BmpData()
+{
+  delete [] m_data;
+}
+
+
 BmpData::BmpData(const string &file_name)
 {
   ifstream stream(file_name.c_str(), ios_base::in | ios_base::binary);
@@ -88,11 +94,26 @@ BmpData::BmpData(const string &file_name)
   }
 
   bool read_lines_backward = read_header(file_name, stream);
-
-  size_t line_size = (width() * 3 + 3) % 4;
+  size_t line_padding = 4 - (m_width * 3) % 4;
+  m_data = new unsigned char[m_width * m_height * 3];
+  char *buffer = static_cast<char*>(static_cast<void*>(m_data));
 
   try {
-    
+    stream.exceptions(ios_base::failbit | ios_base::badbit);
+    if(read_lines_backward) {
+      // Read lines in backward direction
+      for(size_t line_index = m_height - 1 ; line_index > 0 ; --line_index) {
+        stream.read(buffer + line_index * m_width * 3, m_width * 3);
+        stream.ignore(line_padding);
+      }
+      stream.read(buffer, m_width * 3);
+    } else {
+      // Read lines in forward direction
+      for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
+        stream.read(buffer + line_index * m_width * 3, m_width * 3);
+        stream.ignore(line_padding);
+      }
+    }
   } catch(const ios_base::failure &exception) {
     if(stream.eof()) {
       clog << "Error reading the BMP image data in '" << file_name
@@ -106,6 +127,15 @@ BmpData::BmpData(const string &file_name)
 
   stream.close();
 }
+
+
+BmpData::BmpData(size_t width, size_t height)
+  : m_width(width),
+    m_height(height),
+    m_data(new unsigned char[width * height * 3])
+{
+}
+
 
 bool BmpData::read_header(const std::string &file_name, istream &stream)
 {
