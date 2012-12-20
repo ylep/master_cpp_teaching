@@ -11,13 +11,20 @@
 #include <fstream>
 #include <iostream>
 
+#define debug_expr(expr) if(debug_bmp_io) {                 \
+    std::clog << __FILE__ ":" << __LINE__ << ": " #expr "=" \
+      << (expr) << std::endl;                               \
+  }
+
 using namespace std;
 
 namespace {
 
+  const bool debug_bmp_io = false;
+
   // Substitute cstdint header declarations.
   typedef short int16_t;
-  typedef long int32_t;
+  typedef int int32_t;
   typedef unsigned short uint_least16_t;
   typedef unsigned long uint_least32_t;
   typedef long int_least32_t;
@@ -94,7 +101,7 @@ BmpData::BmpData(const string &file_name)
   }
 
   bool read_lines_backward = read_header(file_name, stream);
-  size_t line_padding = 4 - (m_width * 3) % 4;
+  size_t line_padding = 3 - (m_width * 3 - 1) % 4;
   m_data = new unsigned char[m_width * m_height * 3];
   char *buffer = static_cast<char*>(static_cast<void*>(m_data));
 
@@ -156,10 +163,17 @@ bool BmpData::read_header(const std::string &file_name, istream &stream)
 
     // File offset 10, read BitmapOffset (in endian-independent fashion).
     size_t data_offset = read_DWORD(stream);
+    debug_expr(data_offset);
+
+    {
+      streampos pos = stream.tellg();
+      assert(pos == 14 || pos == -1);
+    }
 
     // File offset 14, beginning of second header (Bitmap Header).
     // File offset 14, read size of header.
     size_t size_of_header = read_DWORD(stream);
+    debug_expr(size_of_header);
 
     int_least32_t int_width, int_height;
     if(size_of_header == 12) {
@@ -171,6 +185,8 @@ bool BmpData::read_header(const std::string &file_name, istream &stream)
       int_width = read_LONG(stream);
       int_height = read_LONG(stream);
     }
+    debug_expr(int_width);
+    debug_expr(int_height);
 
     if(int_width <= 0) {
       clog << "Invalid BMP file '" << file_name
@@ -189,25 +205,36 @@ bool BmpData::read_header(const std::string &file_name, istream &stream)
     // File offset [22 / 26], ignore Planes field.
     stream.ignore(2);
     // File offset [24 / 28], read BitsPerPixel.
-    if(read_WORD(stream) != 24) {
-      clog << "The BMP file '" << file_name << "'cannot be read: "
-        "it must be stored in 24-bit RGB format." << endl;
-      exit(EXIT_FAILURE);
+    {
+      uint_least16_t bits_per_pixel = read_WORD(stream);
+      debug_expr(bits_per_pixel);
+      if(bits_per_pixel != 24) {
+        clog << "The BMP file '" << file_name << "'cannot be read: "
+          "it must be stored in 24-bit RGB format." << endl;
+        exit(EXIT_FAILURE);
+      }
     }
 
     if(size_of_header == 12) {
       // File offset 26, past the end of header.
       stream.ignore(data_offset - 26);
     } else {
-      // File offset 26, read Compression.
-      if(read_DWORD(stream) != 0) {
-      clog << "The BMP file '" << file_name << "'cannot be read: "
-        "it uses compression, which is not handled." << endl;
-      exit(EXIT_FAILURE);
+      // File offset 30, read Compression.
+      uint_least32_t compression = read_DWORD(stream);
+      debug_expr(compression);
+      if(compression != 0) {
+        clog << "The BMP file '" << file_name << "'cannot be read: "
+          "compression is not handled." << endl;
+        exit(EXIT_FAILURE);
       }
 
       // File offset 30, past any interesting header field.
-      stream.ignore(data_offset - 30);
+      stream.ignore(data_offset - 34);
+    }
+
+    {
+      streampos pos = stream.tellg();
+      assert(pos == streampos(data_offset) || pos == -1);
     }
 
     return int_height < 0;
