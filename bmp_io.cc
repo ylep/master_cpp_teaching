@@ -20,7 +20,7 @@ using namespace std;
 
 namespace {
 
-  const bool debug_bmp_io = false;
+  bool const debug_bmp_io = false;
 
   // Substitute cstdint header declarations.
   typedef short int16_t;
@@ -89,7 +89,7 @@ BmpData::~BmpData()
 }
 
 
-BmpData::BmpData(const string &file_name)
+BmpData::BmpData(string const &file_name)
 {
   ifstream stream(file_name.c_str(), ios_base::in | ios_base::binary);
 
@@ -121,7 +121,7 @@ BmpData::BmpData(const string &file_name)
         stream.ignore(line_padding);
       }
     }
-  } catch(const ios_base::failure &exception) {
+  } catch(ios_base::failure const &exception) {
     if(stream.eof()) {
       clog << "Error reading the BMP image data in '" << file_name
            << "': premature end of file, aborting." << endl;
@@ -144,7 +144,7 @@ BmpData::BmpData(size_t width, size_t height)
 }
 
 
-bool BmpData::read_header(const std::string &file_name, istream &stream)
+bool BmpData::read_header(std::string const &file_name, istream &stream)
 {
   check_int_sizes();
   assert(stream.good());
@@ -238,7 +238,7 @@ bool BmpData::read_header(const std::string &file_name, istream &stream)
     }
 
     return int_height < 0;
-  } catch(const ios_base::failure &exception) {
+  } catch(ios_base::failure const &exception) {
     clog << "Error reading the BMP header of '" << file_name << "' ("
          << exception.what() << "), aborting." << endl;
     exit(EXIT_FAILURE);
