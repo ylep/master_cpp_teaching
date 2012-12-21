@@ -20,7 +20,8 @@ using namespace std;
 
 namespace {
 
-  bool const debug_bmp_io = false;
+  bool const debug_bmp_io = true;
+  size_t const size_of_file_header = 14;
 
   // Substitute cstdint header declarations.
   typedef short int16_t;
@@ -80,6 +81,26 @@ namespace {
     return value;
   }
 
+  void write_WORD(uint_least16_t value, ostream &stream)
+  {
+    stream.put(value & 0xff);
+    stream.put((value >> CHAR_BIT) & 0xff);
+  }
+
+  void write_DWORD(uint_least32_t value, ostream &stream)
+  {
+    stream.put(value & 0xff);
+    stream.put((value >> CHAR_BIT) & 0xff);
+    stream.put((value >> (2 * CHAR_BIT)) & 0xff);
+    stream.put((value >> (3 * CHAR_BIT)) & 0xff);
+  }
+
+  void write_SHORT(int16_t value, ostream &stream)
+  {
+    stream.put(value & 0xff);
+    stream.put((value >> CHAR_BIT) & 0xff);
+  }
+
 } // empty namespace
 
 
@@ -116,11 +137,13 @@ BmpData::BmpData(string const &file_name)
       stream.read(buffer, m_width * 3);
     } else {
       // Read lines in forward direction
-      for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
+      for(size_t line_index = 0 ; line_index < m_height - 1 ; ++line_index) {
         stream.read(buffer + line_index * m_width * 3, m_width * 3);
         stream.ignore(line_padding);
       }
+      stream.read(buffer + (m_height - 1) * m_width * 3, m_width * 3);
     }
+    stream.close();
   } catch(ios_base::failure const &exception) {
     if(stream.eof()) {
       clog << "Error reading the BMP image data in '" << file_name
@@ -131,8 +154,6 @@ BmpData::BmpData(string const &file_name)
     }
     exit(EXIT_FAILURE);
   }
-
-  stream.close();
 }
 
 
@@ -147,9 +168,9 @@ BmpData::BmpData(size_t width, size_t height)
 bool BmpData::read_header(std::string const &file_name, istream &stream)
 {
   check_int_sizes();
-  assert(stream.good());
   try {
     stream.exceptions(ios_base::eofbit | ios_base::failbit | ios_base::badbit);
+    assert(stream.good());
 
     // File offset 0, beginning of first header (File Header).
     // File offset 0, read magic string (FileType field).
@@ -167,7 +188,7 @@ bool BmpData::read_header(std::string const &file_name, istream &stream)
 
     {
       streampos pos = stream.tellg();
-      assert(pos == 14 || pos == -1);
+      assert(pos == size_of_file_header || pos == -1);
     }
 
     // File offset 14, beginning of second header (Bitmap Header).
@@ -243,4 +264,71 @@ bool BmpData::read_header(std::string const &file_name, istream &stream)
          << exception.what() << "), aborting." << endl;
     exit(EXIT_FAILURE);
   }
+}
+
+bool BmpData::write_file(string const &file_name) const
+{
+  ofstream stream(file_name.c_str(),
+                  ios_base::out | ios_base::binary | ios_base::trunc);
+
+  if(stream.fail()) {
+    string message = strerror(errno);
+    clog << "Output file '" << file_name << "' could not be opened ("
+         << message << ")." << endl;
+    return false;
+  }
+
+  try {
+    stream.exceptions(ios_base::failbit | ios_base::badbit);
+    assert(stream.good());
+
+    char zeros[8] = "\0\0\0\0\0\0\0";
+    size_t const size_of_v2_header = 12;
+    size_t const data_offset = size_of_file_header + size_of_v2_header;
+
+    // File offset 0, beginning of first header (File Header).
+    // File offset 0, write magic string (FileType field).
+    stream.put('B');
+    stream.put('M');
+
+    stream.write(zeros, 8);
+
+    write_DWORD(data_offset, stream);
+
+    {
+      streampos pos = stream.tellp();
+      assert(pos == size_of_file_header || pos == -1);
+    }
+
+    // File offset 14, beginning of second header (Bitmap Header).
+    write_DWORD(size_of_v2_header, stream);
+    write_SHORT(m_width, stream);
+    write_SHORT(m_height, stream);
+
+    // File offset 20, write Planes and BitsPerPixel.
+    write_WORD(1, stream);
+    write_WORD(24, stream);
+
+    {
+      streampos pos = stream.tellp();
+      assert(pos == streampos(data_offset) || pos == -1);
+    }
+
+    size_t line_padding = 3 - (m_width * 3 - 1) % 4;
+    char *buffer = static_cast<char*>(static_cast<void*>(m_data));
+
+    for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
+      stream.write(buffer + line_index * m_width * 3, m_width * 3);
+      stream.write(zeros, line_padding);
+    }
+
+    stream.close();
+
+  } catch(ios_base::failure const &exception) {
+    clog << "Error writing the BMP file '" << file_name << "' ("
+         << exception.what() << ")." << endl;
+    return false;
+  }
+
+  return true;
 }

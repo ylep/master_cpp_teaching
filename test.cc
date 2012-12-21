@@ -20,5 +20,8 @@ int main(int argc, char **argv)
        << ", G=" << int(bmp_data.data()[1])
        << ", R=" << int(bmp_data.data()[2]) << endl;
 
-  return cout.good() ? EXIT_SUCCESS : EXIT_FAILURE;
+  // beware of short-circuit
+  bool ok = bmp_data.write_file(argv[2]) && cout.good();
+
+  return ok ? EXIT_SUCCESS : EXIT_FAILURE;
 }
