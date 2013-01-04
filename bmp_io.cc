@@ -21,7 +21,7 @@ using namespace std;
 namespace {
 
   bool const debug_bmp_io = true;
-  size_t const size_of_file_header = 14;
+  streamsize const size_of_file_header = 14;
 
   // Substitute cstdint header declarations.
   typedef short int16_t;
@@ -122,7 +122,7 @@ Bmp24::Bmp24(string const &file_name)
   }
 
   bool read_lines_backward = read_header(file_name, stream);
-  size_t line_padding = 3 - (m_width * 3 - 1) % 4;
+  streamsize line_padding = 3 - (m_width * 3 - 1) % 4;
   m_data = new unsigned char[m_width * m_height * 3];
   char *buffer = static_cast<char*>(static_cast<void*>(m_data));
 
@@ -183,17 +183,18 @@ bool Bmp24::read_header(std::string const &file_name, istream &stream)
     stream.ignore(8);
 
     // File offset 10, read BitmapOffset (in endian-independent fashion).
-    size_t data_offset = read_DWORD(stream);
+    streamsize data_offset = read_DWORD(stream);
     debug_expr(data_offset);
 
     {
       streampos pos = stream.tellg();
+      debug_expr(pos);
       assert(pos == size_of_file_header || pos == -1);
     }
 
     // File offset 14, beginning of second header (Bitmap Header).
     // File offset 14, read size of header.
-    size_t size_of_header = read_DWORD(stream);
+    streamsize size_of_header = read_DWORD(stream);
     debug_expr(size_of_header);
 
     int_least32_t int_width, int_height;
@@ -255,7 +256,8 @@ bool Bmp24::read_header(std::string const &file_name, istream &stream)
 
     {
       streampos pos = stream.tellg();
-      assert(pos == streampos(data_offset) || pos == -1);
+      debug_expr(pos);
+      assert(pos == data_offset || pos == -1);
     }
 
     return int_height < 0;
@@ -283,20 +285,27 @@ bool Bmp24::write_file(string const &file_name) const
     assert(stream.good());
 
     char zeros[8] = "\0\0\0\0\0\0\0";
-    size_t const size_of_v2_header = 12;
-    size_t const data_offset = size_of_file_header + size_of_v2_header;
+    streamsize const size_of_v2_header = 12;
+    streamsize const data_offset = size_of_file_header + size_of_v2_header;
+    streamsize const line_padding = 3 - (m_width * 3 - 1) % 4;
+    streamsize const file_size = data_offset
+      + m_height * (m_width * 3)
+      + (m_height - 1) * line_padding;
 
     // File offset 0, beginning of first header (File Header).
     // File offset 0, write magic string (FileType field).
     stream.put('B');
     stream.put('M');
 
-    stream.write(zeros, 8);
+    write_DWORD(file_size, stream);
+
+    stream.write(zeros, 4);
 
     write_DWORD(data_offset, stream);
 
     {
       streampos pos = stream.tellp();
+      debug_expr(pos);
       assert(pos == size_of_file_header || pos == -1);
     }
 
@@ -311,10 +320,10 @@ bool Bmp24::write_file(string const &file_name) const
 
     {
       streampos pos = stream.tellp();
-      assert(pos == streampos(data_offset) || pos == -1);
+      debug_expr(pos);
+      assert(pos == data_offset || pos == -1);
     }
 
-    size_t line_padding = 3 - (m_width * 3 - 1) % 4;
     char *buffer = static_cast<char*>(static_cast<void*>(m_data));
 
     for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
@@ -322,6 +331,12 @@ bool Bmp24::write_file(string const &file_name) const
       if(line_index != m_height - 1) {
         stream.write(zeros, line_padding);
       }
+    }
+
+    {
+      streampos pos = stream.tellp();
+      debug_expr(pos);
+      assert(pos == file_size || pos == -1);
     }
 
     stream.close();
