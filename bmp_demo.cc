@@ -17,6 +17,7 @@ int main(int argc, char **argv)
   size_t height = input_bmp.height();
   unsigned char const * const input_data = input_bmp.pixel_data();
 
+  // Display some information about the image.
   cout << "Width: " << width << '\n';
   cout << "Height: " << height << '\n';
   cout << "First pixel (bottom left): B=" << int(input_data[0])
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
   Bmp24 output_bmp(width, height);
   unsigned char * const output_data = output_bmp.pixel_data();
 
+  // Output image is a negative copy (255 - x) of the input image.
   for(size_t pixel_index = 0 ; pixel_index < width * height ; ++pixel_index) {
     unsigned char blue = input_data[3 * pixel_index];
     unsigned char green = input_data[3 * pixel_index + 1];
@@ -35,8 +37,7 @@ int main(int argc, char **argv)
     output_data[3 * pixel_index + 2] = 255 - red;
   }
 
-  // beware of short-circuit
-  bool ok = output_bmp.write_file(argv[2]) && cout.good();
+  bool ok = output_bmp.write_file(argv[2]);
 
-  return ok ? EXIT_SUCCESS : EXIT_FAILURE;
+  return (ok && cout.good()) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
