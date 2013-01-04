@@ -1,6 +1,0 @@
-$ ./test test.bmp /dev/null
-Width: 1024
-Height: 768
-First pixel (bottom left): B=41, G=42, R=135
-test: bmp_io.cc:300: bool Bmp24::write_file(const std::string&) const: Assertion `pos == size_of_file_header || pos == -1' failed.
-Abandon

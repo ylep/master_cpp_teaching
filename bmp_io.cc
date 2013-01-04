@@ -20,7 +20,7 @@ using namespace std;
 
 namespace {
 
-  bool const debug_bmp_io = true;
+  bool const debug_bmp_io = false;
   streamsize const size_of_file_header = 14;
 
   // Substitute cstdint header declarations.
@@ -121,10 +121,10 @@ Bmp24::Bmp24(string const &file_name)
     exit(EXIT_FAILURE);
   }
 
-  bool read_lines_backward = read_header(file_name, stream);
-  streamsize line_padding = 3 - (m_width * 3 - 1) % 4;
+  bool const read_lines_backward = read_header(file_name, stream);
+  streamsize const line_padding = 3 - (m_width * 3 - 1) % 4;
   m_data = new unsigned char[m_width * m_height * 3];
-  char *buffer = static_cast<char*>(static_cast<void*>(m_data));
+  char * const buffer = static_cast<char*>(static_cast<void*>(m_data));
 
   try {
     stream.exceptions(ios_base::failbit | ios_base::badbit);
@@ -162,6 +162,11 @@ Bmp24::Bmp24(size_t width, size_t height)
     m_height(height),
     m_data(new unsigned char[width * height * 3])
 {
+  if(!m_data) {
+    cerr << "Could not allocate memory for a Bmp24 image of size "
+         << width << "x" << height << ", aborting." << endl;
+    exit(EXIT_FAILURE);
+  }
 }
 
 
@@ -284,7 +289,7 @@ bool Bmp24::write_file(string const &file_name) const
     stream.exceptions(ios_base::failbit | ios_base::badbit);
     assert(stream.good());
 
-    char zeros[8] = "\0\0\0\0\0\0\0";
+    char const zeros[8] = "\0\0\0\0\0\0\0";
     streamsize const size_of_v2_header = 12;
     streamsize const data_offset = size_of_file_header + size_of_v2_header;
     streamsize const line_padding = 3 - (m_width * 3 - 1) % 4;
@@ -303,12 +308,6 @@ bool Bmp24::write_file(string const &file_name) const
 
     write_DWORD(data_offset, stream);
 
-    {
-      streampos pos = stream.tellp();
-      debug_expr(pos);
-      assert(pos == size_of_file_header || pos == -1);
-    }
-
     // File offset 14, beginning of second header (Bitmap Header).
     write_DWORD(size_of_v2_header, stream);
     write_SHORT(m_width, stream);
@@ -318,25 +317,13 @@ bool Bmp24::write_file(string const &file_name) const
     write_WORD(1, stream);
     write_WORD(24, stream);
 
-    {
-      streampos pos = stream.tellp();
-      debug_expr(pos);
-      assert(pos == data_offset || pos == -1);
-    }
-
-    char *buffer = static_cast<char*>(static_cast<void*>(m_data));
+    char * const buffer = static_cast<char*>(static_cast<void*>(m_data));
 
     for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
       stream.write(buffer + line_index * m_width * 3, m_width * 3);
       if(line_index != m_height - 1) {
         stream.write(zeros, line_padding);
       }
-    }
-
-    {
-      streampos pos = stream.tellp();
-      debug_expr(pos);
-      assert(pos == file_size || pos == -1);
     }
 
     stream.close();

@@ -15,7 +15,7 @@ int main(int argc, char **argv)
   Bmp24 input_bmp(argv[1]);
   size_t width = input_bmp.width();
   size_t height = input_bmp.height();
-  unsigned char const * const input_data = input_bmp.data();
+  unsigned char const * const input_data = input_bmp.pixel_data();
 
   cout << "Width: " << width << '\n';
   cout << "Height: " << height << '\n';
@@ -24,12 +24,15 @@ int main(int argc, char **argv)
        << ", R=" << int(input_data[2]) << endl;
 
   Bmp24 output_bmp(width, height);
-  unsigned char * const output_data = output_bmp.data();
+  unsigned char * const output_data = output_bmp.pixel_data();
 
   for(size_t pixel_index = 0 ; pixel_index < width * height ; ++pixel_index) {
-    output_data[3 * pixel_index] = input_data[3 * pixel_index];
-    output_data[3 * pixel_index + 1] = input_data[3 * pixel_index + 1];
-    output_data[3 * pixel_index + 2] = input_data[3 * pixel_index + 2];
+    unsigned char blue = input_data[3 * pixel_index];
+    unsigned char green = input_data[3 * pixel_index + 1];
+    unsigned char red = input_data[3 * pixel_index + 2];
+    output_data[3 * pixel_index] = 255 - blue;
+    output_data[3 * pixel_index + 1] = 255 - green;
+    output_data[3 * pixel_index + 2] = 255 - red;
   }
 
   // beware of short-circuit
