@@ -104,13 +104,13 @@ namespace {
 } // empty namespace
 
 
-BmpData::~BmpData()
+Bmp24::~Bmp24()
 {
   delete [] m_data;
 }
 
 
-BmpData::BmpData(string const &file_name)
+Bmp24::Bmp24(string const &file_name)
 {
   ifstream stream(file_name.c_str(), ios_base::in | ios_base::binary);
 
@@ -157,7 +157,7 @@ BmpData::BmpData(string const &file_name)
 }
 
 
-BmpData::BmpData(size_t width, size_t height)
+Bmp24::Bmp24(size_t width, size_t height)
   : m_width(width),
     m_height(height),
     m_data(new unsigned char[width * height * 3])
@@ -165,7 +165,7 @@ BmpData::BmpData(size_t width, size_t height)
 }
 
 
-bool BmpData::read_header(std::string const &file_name, istream &stream)
+bool Bmp24::read_header(std::string const &file_name, istream &stream)
 {
   check_int_sizes();
   try {
@@ -266,7 +266,7 @@ bool BmpData::read_header(std::string const &file_name, istream &stream)
   }
 }
 
-bool BmpData::write_file(string const &file_name) const
+bool Bmp24::write_file(string const &file_name) const
 {
   ofstream stream(file_name.c_str(),
                   ios_base::out | ios_base::binary | ios_base::trunc);
@@ -319,7 +319,9 @@ bool BmpData::write_file(string const &file_name) const
 
     for(size_t line_index = 0 ; line_index < m_height ; ++line_index) {
       stream.write(buffer + line_index * m_width * 3, m_width * 3);
-      stream.write(zeros, line_padding);
+      if(line_index != m_height - 1) {
+        stream.write(zeros, line_padding);
+      }
     }
 
     stream.close();

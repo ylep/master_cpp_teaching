@@ -1,0 +1,13 @@
+$ ./test test.bmp /dev/null
+Width: 1024
+Height: 768
+First pixel (bottom left): B=41, G=42, R=135
+test: bmp_io.cc:300: bool Bmp24::write_file(const std::string&) const: Assertion `pos == size_of_file_header || pos == -1' failed.
+Abandon
+
+$ ./test test.bmp testout.bmp && identify testout.bmp
+Width: 1024
+Height: 768
+First pixel (bottom left): B=41, G=42, R=135
+testout.bmp BMP 1024x768 1024x768+0+0 8-bit DirectClass 2.359MB 0.000u 0:00.009
+identify: Longueur et taille du fichier ne correspondent pas `testout.bmp' @ warning/bmp.c/ReadBMPImage/803.
