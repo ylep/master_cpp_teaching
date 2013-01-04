@@ -1,3 +1,5 @@
+// Written by Yann Leprince <yann.leprince@u-psud.fr>.
+
 #include <cstdlib>
 #include <iostream>
 

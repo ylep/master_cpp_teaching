@@ -1,9 +1,12 @@
+// Written by Yann Leprince <yann.leprince@u-psud.fr>.
+
 #ifndef _BMP_IO_HH_INCLUDED_
 #define _BMP_IO_HH_INCLUDED_
 
 #include <string>
 #include <iosfwd>
 
+/* This class can load and save 24 bit RGB images in Windows BMP format. */
 class Bmp24
 {
 public:
@@ -24,7 +27,7 @@ public:
 
      The pixel data is contained in an array of size [width * height * 3].
      Three bytes are used to represent the colour of each pixel. They represent
-     the blue, green, and red channel respectively, each value is an integer
+     the BLUE, GREEN, and RED channel respectively, each value is an integer
      in the range [0; 255].
 
      The pixels are stored contiguously in memory. Each line is scanned from
