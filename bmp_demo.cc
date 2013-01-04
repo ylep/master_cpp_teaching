@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
   if(argc < 3) {
-    clog << "Usage: test input.bmp output.bmp" << endl;
+    clog << "Usage: bmp_demo input.bmp output.bmp" << endl;
     return EXIT_FAILURE;
   }
 

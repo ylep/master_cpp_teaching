@@ -4,6 +4,7 @@
 #include "bmp_io.hh"
 
 #include <cassert>
+#include <cstring>
 #include <cerrno>
 #include <climits>
 #include <cstdlib>
@@ -101,13 +102,7 @@ namespace {
     stream.put((value >> CHAR_BIT) & 0xff);
   }
 
-} // empty namespace
-
-
-Bmp24::~Bmp24()
-{
-  delete [] m_data;
-}
+} // End of anonymous namespace
 
 
 Bmp24::Bmp24(string const &file_name)
@@ -167,6 +162,12 @@ Bmp24::Bmp24(size_t width, size_t height)
          << width << "x" << height << ", aborting." << endl;
     exit(EXIT_FAILURE);
   }
+}
+
+
+Bmp24::~Bmp24()
+{
+  delete [] m_data;
 }
 
 
