@@ -14,6 +14,14 @@
 #include <fstream>
 #include <iostream>
 
+// Use this header instead of <cstdint>, because the latter needs C++11 to be
+// selected explicitly (-std=c++0x with GCC 4.3).
+#include <stdint.h>
+
+#if CHAR_BIT != 8
+#error This code assumes that chars are exactly 8 bit.
+#endif
+
 #define debug_expr(expr) if(debug_bmp_io) {                 \
     std::clog << __FILE__ ":" << __LINE__ << ": " #expr "=" \
       << (expr) << std::endl;                               \
@@ -25,29 +33,6 @@ namespace {
 
   bool const debug_bmp_io = false;
   streamsize const size_of_file_header = 14;
-
-  // Substitute cstdint header declarations.
-  typedef short int16_t;
-  typedef int int32_t;
-  typedef unsigned short uint_least16_t;
-  typedef unsigned long uint_least32_t;
-  typedef long int_least32_t;
-
-#if CHAR_BIT != 8
-#error This code assumes that chars are exactly 8 bit.
-#endif
-
-  void check_int_sizes() {
-    static bool ok = false;
-    if(!ok) {
-      assert(sizeof(uint_least16_t) >= 2);
-      assert(sizeof(int16_t) == 2);
-      assert(sizeof(uint_least32_t) >= 4);
-      assert(sizeof(int32_t) == 4);
-      assert(sizeof(int_least32_t) >= 4);
-      ok = true;
-    }
-  }
 
   uint_least16_t read_WORD(istream &stream)
   {
@@ -175,7 +160,6 @@ Bmp24::~Bmp24()
 
 bool Bmp24::read_header(std::string const &file_name, istream &stream)
 {
-  check_int_sizes();
   try {
     stream.exceptions(ios_base::eofbit | ios_base::failbit | ios_base::badbit);
     assert(stream.good());
