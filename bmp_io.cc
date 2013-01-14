@@ -181,7 +181,8 @@ bool Bmp24::read_header(std::string const &file_name, istream &stream)
     {
       streampos pos = stream.tellg();
       debug_expr(pos);
-      assert(pos == size_of_file_header || pos == -1);
+      assert(pos == static_cast<streampos>(size_of_file_header) ||
+             pos == static_cast<streampos>(-1));
     }
 
     // File offset 14, beginning of second header (Bitmap Header).
@@ -249,7 +250,8 @@ bool Bmp24::read_header(std::string const &file_name, istream &stream)
     {
       streampos pos = stream.tellg();
       debug_expr(pos);
-      assert(pos == data_offset || pos == -1);
+      assert(pos == static_cast<streampos>(data_offset) ||
+             pos == static_cast<streampos>(-1));
     }
 
     return int_height < 0;
