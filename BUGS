@@ -1,0 +1,15 @@
+Compilation problem on GCC 4.3.2 (Debian lenny):
+
+int32_t, int16_t, int_least32_t and friends are found in the std namespace
+because stdint.h is included indirectly. They conflict with the versions
+defined in the anonymous namespace.
+
+Quick fix: comment out the local declarations of those types.
+
+
+Compilation problem on GCC 4.0.? Darwin (Mac OS X 10.5.?):
+
+In addition to the previous bug, problem with ambiguous overload of operator==
+for streampos.
+
+Quick fix: convert -1 and streamsize to streampos explicitly.
