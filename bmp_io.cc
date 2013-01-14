@@ -1,4 +1,5 @@
 // Written by Yann Leprince <yann.leprince@u-psud.fr>.
+// Version 2013-01-14.
 
 // Reference used for the BMP file format(s):
 // http://www.fileformat.info/format/bmp/egff.htm

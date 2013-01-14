@@ -1,4 +1,5 @@
 // Written by Yann Leprince <yann.leprince@u-psud.fr>.
+// Version 2013-01-14.
 
 #ifndef _BMP_IO_HH_INCLUDED_
 #define _BMP_IO_HH_INCLUDED_
@@ -17,7 +18,7 @@ public:
   /* Create a BMP image of specified width and height. Memory is allocated to
      hold the image data, and can be accessed using pixel_data(). */
   Bmp24(size_t width, size_t height);
-  ~Bmp24();
+  virtual ~Bmp24();
 
   /* Width and height of the image in pixels, respectively. */
   size_t width() const {return m_width;};
