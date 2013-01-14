@@ -1,6 +1,0 @@
-Compilation problem on GCC 4.0.? Darwin (Mac OS X 10.5.?):
-
-In addition to the previous bug, problem with ambiguous overload of operator==
-for streampos.
-
-Quick fix: convert -1 and streamsize to streampos explicitly.
