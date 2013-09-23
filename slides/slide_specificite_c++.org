@@ -1,4 +1,4 @@
-#+TITLE:  Spécificités du C++ (indépendante de la POO)
+#+TITLE:  Spécificités du C++ (indépendantes de la POO)
 #+AUTHOR: Xavier Garrido
 #+DATE:   18/09/2013
 #+OPTIONS: toc:nil ^:{}
