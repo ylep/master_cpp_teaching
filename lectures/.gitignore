@@ -1,6 +1,8 @@
 *.pdf
 *.tex
+*.auxlock
 *.fdb*
+*.fls
 *~
 latex.d/
 tikz.d/
