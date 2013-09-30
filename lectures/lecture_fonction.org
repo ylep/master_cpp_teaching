@@ -116,7 +116,7 @@ retour d'une fonction sont transmis par valeur y compris lors de la transmission
 par adresse puisque les valeurs de pointeurs sont recopiées. Le \Cpp peut
 entièrement prendre en charge la transmission par adresse à travers
 l'utilisation des références. Le principal intérêt de la notion de référence est
-qu'elle laisse le compilateur mettre en œuvre "les mécanismes" adaptés au
+qu'elle laisse le compilateur mettre en œuvre « les mécanismes » adaptés au
 transfert par adresse. Il n'est plus alors nécessaire de passer par des
 pointeurs. L'utilisateur de la fonction (qui n'est pas nécessairement celui qui
 l'a écrite) n'a, dès lors, plus à connaitre la nature des arguments à

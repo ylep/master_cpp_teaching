@@ -180,7 +180,7 @@ un membre d'une classe =cercle= ainsi définie
 La situation d'objets membres correspond à une relation entre classes du type
 relation de possession. Effectivement, on peut dire qu'un cercle possède un
 centre (de type =point=). Ce type de relation s'oppose à la relation de type
-"relation est" inhérente à la notion d'héritage (/cf./ Chapitre [[file:lecture_heritage.pdf]["Héritage"]]).
+« relation est » inhérente à la notion d'héritage (/cf./ Chapitre [[file:lecture_heritage.pdf][Héritage]]).
 
 La présence d'un constructeur de classe =point= impose la création d'un
 constructeur de classe =cercle=. En effet, en l'absence de constructeur, le
@@ -227,7 +227,7 @@ la classe impliquée est de taille conséquente). En outre, si la classe =point=
 dispose de membres dynamiques, =p_geometry_type= par exemple, seules les valeurs
 des pointeurs seront recopiées et non leurs emplacements mémoire. Il conviendra
 alors de surcharger l'opérateur d'affectation === de telle sorte que les membres
-pointeurs soient également affectés (/cf./ Chapitre [[file:lecture_surcharge_operateur.pdf]["Surcharge d'opérateur"]]).
+pointeurs soient également affectés (/cf./ Chapitre [[file:lecture_surcharge_operateur.pdf][Surcharge d'opérateur]]).
 
 * Les objets dynamiques
 
@@ -265,7 +265,7 @@ l'appel du destructeur de classe.
 Nous venons de voir que le \Cpp garantissait l'appel d'un constructeur pour un
 objet créé par une déclaration ou par un =new=. Ce point est fondamental
 puisqu'il certifie qu'un objet ne pourra être créé sans avoir été placé, au
-préalable, dans "un état initial convenable" (du moins jugé comme tel par le
+préalable, dans « un état initial convenable » (du moins jugé comme tel par le
 concepteur de l'objet).
 
 Cependant, il existe des circonstances dans lesquelles il est nécessaire de
@@ -359,4 +359,4 @@ code suivant fournit un exemple d'implémentation de constructeur de recopie
   par défaut semblable (copie superficielle), la prise en compte d'une copie
   profonde passe par des mécanismes différents : définition d'un constructeur de
   recopie pour l'initialisation, surdéfinition de l'opérateur === pour
-  l'affectation (/cf./ Chapitre [[file:lecture_surcharge_operateur.pdf]["Surcharge d'opérateur"]]).
+  l'affectation (/cf./ Chapitre [[file:lecture_surcharge_operateur.pdf][Surcharge d'opérateur]]).

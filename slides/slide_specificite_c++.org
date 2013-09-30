@@ -78,7 +78,7 @@ les mêmes types d'argument
 #+END_SRC
 
 #+BEAMER: \pause
-Le compilateur se charge d'appeler la "bonne" fonction par rapport au contexte
+Le compilateur se charge d'appeler la « bonne » fonction par rapport au contexte
 /i.e./ au vu de la liste d'arguments donnée lors de l'appel.
 
 #+BEGIN_SRC c++

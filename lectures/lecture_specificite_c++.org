@@ -50,7 +50,7 @@ doivent *obligatoirement* être les *derniers* dans la liste.
 * Surdéfinition de fonction
 
 En \Cpp deux fonctions peuvent porter le même nom[fn:1] à condition qu'elles
-n'aient pas les mêmes arguments. Le compilateur se charge d'appeler la "bonne"
+n'aient pas les mêmes arguments. Le compilateur se charge d'appeler la « bonne »
 fonction suivant le contexte c'est-à-dire au vu de la liste d'arguments donnée
 lors de l'appel. Ainsi
 #+BEGIN_SRC c++
@@ -68,10 +68,10 @@ symbole peut avoir deux significations différentes en fonction du contexte.
 
 * Fonction =inline=
 
-Généralement en C, l'emploi d'une fonction "courte" pour laquelle le temps
+Généralement en C, l'emploi d'une fonction « courte » pour laquelle le temps
 d'exécution est primordial, amène à définir une macro (malgré les inconvénients
 que cela implique). En \Cpp, il existe dans ce cas une solution plus
-satisfaisante : utiliser une fonction "en ligne". Sans rentrer dans les
+satisfaisante : utiliser une fonction « en ligne ». Sans rentrer dans les
 détails[fn:2], la fonction en ligne permet une économie d'exécution mais fait
 perdre de l'espace en mémoire par rapport à une fonction conventionnelle.
 
@@ -86,11 +86,11 @@ Exemple
 
 #+BEGIN_REMARK
 Lorsqu'une méthode est déclarée dans le corps de la classe elle est, par défaut,
-"en ligne"
+« en ligne »
 #+END_REMARK
 
 [fn:2] en réalité, la fonction en ligne est très proche d'une macro, elle ne
-fait que "recopier" le code de la fonction à l'endroit de l'appel de la fonction.
+fait que « recopier » le code de la fonction à l'endroit de l'appel de la fonction.
 
 * Les espaces de noms
 
@@ -99,11 +99,11 @@ recherche des noms des identificateurs par le compilateur. Leur but est
 essentiellement de regrouper les identificateurs et d'éviter les conflits de
 noms entre plusieurs parties d'un même projet. À titre d'exemple, lorsque l'on
 doit utiliser plusieurs bibliothèque dans programme, on peut être confronté au
-problème dit de "pollution de l'espace des noms", à savoir qu'un même
+problème dit de « pollution de l'espace des noms », à savoir qu'un même
 identificateur peut très bien avoir été utilisé par plusieurs bibliothèques. Ce
 type de conflit provient du fait que le \Cpp ne fournit qu'un seul espace de
 noms de portée globale. Grâce aux espaces de noms non globaux, ce type de
-problème peut être évité. Il s'agit donc de donner un nom à un "espace" de
+problème peut être évité. Il s'agit donc de donner un nom à un « espace » de
 déclarations, en procédant ainsi
 
 #+BEGIN_SRC c++
@@ -154,9 +154,9 @@ C.
 * Les nouveaux opérateurs de cast
 
 En \Cpp comme en C, il est possible de réaliser des conversions explicites à
-l'aide d'un opérateur de "cast". Les conversions acceptées comportent
+l'aide d'un opérateur de « cast ». Les conversions acceptées comportent
 naturellement les conversions implicites (voir, entre autres, le paragraphe
-précédent), auxquelles s'ajoutent des conversions "dégradantes" ou dépendantes
+précédent), auxquelles s'ajoutent des conversions « dégradantes » ou dépendantes
 de l'implémentation.
 
 La norme ANSI de \Cpp propose de nouveaux opérateurs de cast, plus évocateurs,

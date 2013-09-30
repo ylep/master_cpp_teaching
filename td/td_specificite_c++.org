@@ -46,7 +46,7 @@ somme des couples de lapins lors des deux moins précédents.
   de Fibonacci et estimer le temps d'exécution nécessaire au programme /via/ la
   commande unix =time ./nom_executable=.
 
-- Modifier les précédentes fonctions afin de les rendre "en ligne". Comparer et
+- Modifier les précédentes fonctions afin de les rendre « en ligne ». Comparer et
   commenter le temps d'exécution dans ce mode par rapport aux précédentes
   déclarations.
 
@@ -56,7 +56,7 @@ somme des couples de lapins lors des deux moins précédents.
 - Concevoir et implémenter une fonction =rfibonacci= proposant une solution
   récursive au calcul de la suite de Fibonacci. À partir de cette fonction,
   déduire une macro équivalente, l'implémenter et expliquer le résultat de la
-  compilation. Rendre la fonction =rfibonacci= "en ligne", compiler et, sachant
+  compilation. Rendre la fonction =rfibonacci= « en ligne », compiler et, sachant
   que la notion de fonction en ligne est équivalente à la définition de macro du
   point de vue du remplacement littéral des expressions, interpréter le fait
   que le compilateur permette l'exécution du programme.
@@ -68,7 +68,7 @@ somme des couples de lapins lors des deux moins précédents.
   afin d'utiliser cette fonction (on commentera provisoirement la précédente
   fonction =fibonacci=), compiler et tester l'exécution.
 
-- Finalement, décommenter la version "locale" de =fibonacci= /i.e./ celle
+- Finalement, décommenter la version « locale » de =fibonacci= /i.e./ celle
   contenue dans le programme principal et définie au début de cette
   exercice. Chercher à résoudre l'erreur de compilation en utilisant un espace
   de nom =local= et tester le programme en forçant le choix de fonction à

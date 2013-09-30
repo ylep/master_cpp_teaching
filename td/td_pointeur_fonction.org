@@ -7,7 +7,7 @@
 #+LATEX_HEADER: \setcounter{chapter}{0}
 
 * Compilation conditionnelle
-Compiler le code suivant, sans puis avec les options de "warnings"
+Compiler le code suivant, sans puis avec les options de « warnings »
 
 #+BEGIN_SRC c++
   #include <iostream>
@@ -25,7 +25,7 @@ Compiler le code suivant, sans puis avec les options de "warnings"
   }
 #+END_SRC
 
-Avant exécution, corriger les "erreurs" puis tester le programme. Ajouter
+Avant exécution, corriger les « erreurs » puis tester le programme. Ajouter
 finalement une directive de préprocesseur d'identificateur =DEBUG= permettant
 l'affichage ou non des différentes valeurs d'entier et compiler suivant les deux
 cas. S'assurer du résultat en précompilant le code source.

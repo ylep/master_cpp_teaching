@@ -30,7 +30,7 @@ Chaque carte numérotée de 2 à 10, a sa valeur nominale (égale au numéro sur
 carte). Les valets, les dames et les rois (les figures), ont une valeur de 10
 points : ces cartes sont appelées des bûches par les compteurs de cartes. L'As
 vaut 1 point ou 11 points, selon ce qui arrange au mieux le joueur : une sorte
-de "joker".  La meilleure combinaison possible est le blackjack, à savoir la
+de « joker ».  La meilleure combinaison possible est le blackjack, à savoir la
 valeur 21 obtenue avec deux cartes (AS + FIGURE). Dans ce cas précis, le
 paiement se fait automatiquement à 3:2, le joueur emporte 1,5 fois sa mise.
 

@@ -67,7 +67,7 @@ limitées (mémoire, nombre de registres, ...), le générateur retrouvera le m�
 état interne. Un générateur non périodique n'est pas impossible, mais nécessite
 une mémoire croissante pour ne pas se retrouver dans le même état. Pour
 contourner cet obstacle théorique, le générateur peut commencer dans un état
-quelconque (la "graine", /seed/ en anglais). L'initialisation se fait par
+quelconque (la « graine », /seed/ en anglais). L'initialisation se fait par
 l'intermédiaire de la méthode =srand(int seed)= qui prend pour argument la
 graine. Il produira toutefois la même séquence de nombres aléatoires si la graine
 reste identique.

@@ -231,7 +231,7 @@ défaut.
 
 *** Remarques générales
 
-- l'opérateur =()= est intéressant car il est "n-unaire".
+- l'opérateur =()= est intéressant car il est « n-unaire ».
 
 - il est aussi possible de surdéfinir :
   - les opérateurs de transtypage (ou de casting)

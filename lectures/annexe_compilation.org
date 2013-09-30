@@ -15,7 +15,7 @@ pas spécifiques au \Cpp et quand bien même les différents outils de
 programmation peuvent les cacher, le processus de génération des exécutables se
 déroule toujours selon les principes suivant.
 
-La première étape appelée *précompilation*, consiste à "traiter" *les fichiers
+La première étape appelée *précompilation*, consiste à « traiter » *les fichiers
 sources* (fichiers d'en-tête: =*.h= ou =*.hh= et fichiers contenant le code à
 proprement dit: =*.cc *.cpp=) avant compilation. Dans le cas du C et du \Cpp, il
 s'agit des opérations effectuées par le préprocesseur (remplacement de macros,
@@ -148,7 +148,7 @@ utilisée pour inclure les fichiers d'entête de librairies (fichiers
 =*.h= ou =*.hh=).
 
 La directive =#define identificateur= permet de définir un paramètre
-"identificateur" qui pourra être utilisé dans une clause conditionnelle (=#if=,
+« identificateur » qui pourra être utilisé dans une clause conditionnelle (=#if=,
 =#ifdef=, =#ifndef= voir ci-après). L'identificateur ne doit pas commencer par
 un chiffre.
 
@@ -239,7 +239,7 @@ remplacées par des déclarations de la forme
 #+END_SRC
 
 De même, les macros telles que =CARRE= c'est-à-dire définissant de simples
-actions deviendront des fonctions en ligne (/cf./ [[file:lecture_spectificite_c++.pdf]["Spécificités du C++"]])
+actions deviendront des fonctions en ligne (/cf./ [[file:lecture_spectificite_c++.pdf][Spécificités du C++]])
 s'écrivant
 
 #+BEGIN_SRC c++

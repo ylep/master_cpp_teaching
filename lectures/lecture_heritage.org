@@ -16,7 +16,7 @@ fonction voire modifier une partie du contenu de la classe mère =A=. La classe
 tandis que la classe =A= constitue *une généralisation* de =B=.
 
 Cette technique constitue l'un des fondements de la P.O.O de part la possibilité
-de développer de nouveaux "outils" en se fondant sur un ensemble "d'acquis"
+de développer de nouveaux « outils » en se fondant sur un ensemble « d'acquis »
 /i.e./ de classes préexistantes. La classe dérivée hérite des potentialités de
 la classe de base, lui en ajoute éventuellement, sans qu'il soit nécessaire de
 remettre en cause la classe de base. D'un point de vue technique, il n'est plus
@@ -78,7 +78,7 @@ dès lors naturelle.
 À travers cet exemple, nous notons également l'apparition du mot clé =protected=
 qui étend les possibilité d'encapsulation des données. Ce statut permet à la
 classe dérivée d'accéder aux membres de la classe de base. Pour la classe
-dérivée, il n'est donc plus nécessaire de "passer" par les méthodes de la classe
+dérivée, il n'est donc plus nécessaire de « passer » par les méthodes de la classe
 de base.
 
 Nous pouvons résumer les différents statuts de membres[fn:2] de classe de la
@@ -182,7 +182,7 @@ Malgré l'intérêt et les quelques avantages qu'introduisent l'héritage multip
 l'utilisation reste assez peu répandue. La principale raison réside dans les
 difficultés qu'implique cette notion au niveau de la conception des
 programmes. Il est, en effet, plus facile de structurer un ensemble de classe
-selon des relations "grand-mère -- mère -- fille ..." soit d'héritage simple que
+selon des relations « grand-mère -- mère -- fille ... » soit d'héritage simple que
 selon une modélisation faisant intervenir des liens autres que de parenté et
 introduisant des mécanismes de redondance. Le second problème qui touche à cet
 aspect de redondance, provient d'entités comme une méthode ou un membre qui sont
@@ -240,7 +240,7 @@ Toutefois, et dans la grande majorité des cas, la duplication n'est pas
 souhaitée sinon fortement déconseillée. Dans ces conditions, il est nécessaire
 de préciser au compilateur de n'incorporer qu'une seule fois les membres de =A=
 dans la classe =D=. Pour cela, il s'agit de spécifier, dans les déclarations des
-classes =B= et =C=, que la classe =A= est "virtuelle" (mot clé =virtual=) :
+classes =B= et =C=, que la classe =A= est « virtuelle » (mot clé =virtual=) :
 #+BEGIN_SRC c++
   class B : public virtual A {...};
   class C : public virtual A {...};
@@ -290,11 +290,11 @@ classe =polygone=. Or, si nous exécutons l'instruction =ptr_polygone2->affiche
 est du au choix de la méthode qui a lieu lors de la compilation du programme :
 =ptr_polygone2= étant un pointeur de type =polygone=, le compilateur lui a
 attribué l'ensemble des méthodes de la classe =polygone= et non celle de la
-classe =rectangle=. On parle alors de "ligature statique".
+classe =rectangle=. On parle alors de « ligature statique ».
 
 Pour pallier cette limitation et préserver les liaisons entre classes et
 méthodes, le \Cpp propose le mécanisme de fonctions virtuelles. Il suffit de
-déclarer "virtuelle" (mot clé =virtual=) la méthode =affiche= de la classe mère
+déclarer « virtuelle » (mot clé =virtual=) la méthode =affiche= de la classe mère
 soit la classe =polygone= dans notre exemple :
 #+BEGIN_SRC c++
   class Polygone

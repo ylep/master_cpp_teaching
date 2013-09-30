@@ -33,11 +33,11 @@ données d'un objet, toutes modifications des membres de l'objet se faisant par
 
   3. l'objet est facilement réutilisable.
 
-Vu de "l'extérieur", un objet se caractérise par les spécifications (noms,
+Vu de « l'extérieur », un objet se caractérise par les spécifications (noms,
 arguments et rôles) de ses méthodes, la manière dont sont réellement implantées
 les données étant finalement sans importance[fn:1].
 
-[fn:1] une telle notion est communément appelée "abstraction des données"
+[fn:1] une telle notion est communément appelée « abstraction des données »
 exprimant le fait que les détails de l'implémentation demeurent cachés
 
 ** Inconvénients

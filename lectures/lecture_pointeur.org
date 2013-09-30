@@ -19,7 +19,7 @@ d'adresse. Au cours de sa brève vie, une variable peut valoir 12 puis 222 puis
 -27 alors qu'*un pointeur* désignera l'adresse en mémoire soit, successivement,
 =0x21fd740= puis =0x22ff74A= puis =0x22aa23B=.
 
-Un pointeur possède lui aussi un "type", à savoir que l'adresse se réfère à un
+Un pointeur possède lui aussi un « type », à savoir que l'adresse se réfère à un
 type de données. En outre, un pointeur occupe lui aussi de l'espace mémoire. Il
 prend 2 octets qui servent à conserver l'adresse. On peut donc créer des
 pointeurs sur des pointeurs...

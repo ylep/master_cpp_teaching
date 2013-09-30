@@ -22,7 +22,7 @@ données qui le caractérisent, sur lesquelles des traitements spécifiques peuv
 être appliqués.
 
 Par ailleurs, la programmation orientée objet ne se conçoit que dans le contexte
-d'une analyse du problème à traiter plus "orientée" sur la nature et la
+d'une analyse du problème à traiter plus « orientée » sur la nature et la
 structure des données manipulées (autrement dit, les objets) et des opérations
 associées que sur la séquence des traitements que le programme doit
 effectuer. Elle se distingue en cela de la programmation impérative (ou
@@ -41,7 +41,7 @@ présenterons la version étendue du type structure introduite par le \Cpp. Ce
 nouveau type permettra, dans un premier temps, de nous limiter à la façon de
 mettre en œuvre l'association des données et des méthodes et facilitera
 l'introduction à la notion même de classe. Ce n'est qu'au travers du prochain
-chapitre [[file:lecture_encapsulation.pdf]["Encapsulation des données"]] qu'appa\-raîtont les différences
+chapitre [[file:lecture_encapsulation.pdf][« Encapsulation des données »]] qu'appa\-raîtont les différences
 conceptuelles entre les types structure et classe.
 
 *  Les structures en C++
@@ -81,7 +81,7 @@ En \Cpp, il est possible au sein même d'une structure, d'associer aux données
 membres"[fn:1]. Supposons que nous souhaitions associer à la structure =point=
 précédente, trois fonctions:
 
-- =initialise= pour attribuer des valeurs aux "coordonnées" d'un point,
+- =initialise= pour attribuer des valeurs aux « coordonnées » d'un point,
 
 - =deplace= pour modifier les coordonnées d'un point,
 
@@ -121,7 +121,7 @@ définition.
 :END:
 
 La définition des méthodes se fait comme une fonction à ceci près que le nom de
-la structure doit être précisé afin d'évaluer "la portée" de cette fonction. À
+la structure doit être précisé afin d'évaluer « la portée » de cette fonction. À
 titre d'exemple, la méthode =initialise= pourra être définie ainsi
 
 #+BEGIN_SRC c++
@@ -143,7 +143,7 @@ respectivement =m_Y=. Le variable =m_X= n'est ni un argument ni une variable
 locale à la méthode; =m_x= désigne le membre =m_X= correspondant au type
 =point=. Il est important de noter qu'une telle association entre méthode et
 données membres d'une structure n'est réalisée qu'au travers du préfixe
-=point::=. En l'absence de ce "préfixe", nous définirions effectivement une
+=point::=. En l'absence de ce « préfixe », nous définirions effectivement une
 fonction nommée =initialise=, indépendante de la structure =point=, et ne
 pouvant accéder et donc modifier les membres =m_X= et =m_Y=.
 
@@ -170,7 +170,7 @@ suivante
 déclare deux structures nommées =my_point1= et =my_point2=, chacune disposant de
 trois méthodes =initialise=, =deplace= et =affiche=. L'accès aux membres =m_X=
 et =m_Y= peut se faire comme en C à savoir =my_point1.m_X = 5;=. Cependant et
-comme nous le verrons au prochain chapitre [[file:lecture_encapsulation.pdf]["Encapsulation des données"]], nous
+comme nous le verrons au prochain chapitre [[file:lecture_encapsulation.pdf][/Encapsulation des données/]], nous
 briserions alors le principe d'encapsulation à savoir que nous accèderions
 directement aux données membres sans passer par l'intermédiaire des
 méthodes. Aussi, on priviligiera la manipulation des membres /via/ les méthodes
@@ -207,15 +207,15 @@ méthode quelle est la structure sur laquelle opérer.
 
   La compilation séparée prend alors tout son intérêt puisqu'il est possible de
   compiler le type =point= indépendamment de son utilisation faite dans le
-  programme principal; c'est ainsi que l'on pourra "réutiliser" un composant logiciel.
+  programme principal; c'est ainsi que l'on pourra « réutiliser » un composant logiciel.
 
 *  Notion de classe
 
 En \Cpp, la structure est un cas particulier de la classe. Comme nous le verrons
 au prochain chapitre, une classe est une structure dans laquelle seulement
-certains membres et/ou méthodes sont accessibles "de l'extérieur": on parlera
-alors de membres/méthodes "publics" par opposition aux membres/méthodes dites
-"privés". Toutefois, dans le cadre de ce chapitre d'introduction aux notions de
+certains membres et/ou méthodes sont accessibles « de l'extérieur »: on parlera
+alors de membres/méthodes « publics » par opposition aux membres/méthodes dites
+« privés ». Toutefois, dans le cadre de ce chapitre d'introduction aux notions de
 structure/classe, la déclaration d'une classe est voisine de celle d'une
 structure à ceci près que le mot clé =struct= est remplacé par le terme
 =class=. Par ailleurs, pour avoir un comportement identique à celui d'une
@@ -223,4 +223,4 @@ structure, il convient d'ajouter le mot clé =public= afin que membres et
 méthodes soient accessibles et manipulables depuis l'extérieur de la classe. Par
 défaut, les membres et méthodes d'une classe sont privés (mot clé =private=)
 alors que ceux d'une structure sont publics. L'ensemble de ces concepts est
-précisé dans le chapitre [[file:lecture_encapsulation.pdf]["Encapsulation des données"]].
+précisé dans le chapitre [[file:lecture_encapsulation.pdf][/Encapsulation des données/]].
