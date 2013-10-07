@@ -24,7 +24,7 @@
 - Classe *\rightarrow généralisation de la notion de type* (=int=, =double=,...)
 
   #+BEGIN_SRC c++
-    class particule
+    class Particule
     {
       // Déclaration de membres
       char * m_nom;
@@ -46,7 +46,7 @@
 - Classe *\rightarrow généralisation de la notion de type* (=int=, =double=,...)
 
   #+BEGIN_SRC c++
-    class particule
+    class Particule
     {
       // Déclaration de membres
       char * m_nom;
@@ -55,8 +55,8 @@
       ...
     };
     ...
-    // Instanciation d'objets de type particule
-    particule particule1, particule2;
+    // Instanciation d'objets de type Particule
+    Particule particule1, particule2;
   #+END_SRC
 
 * Accès aux membres de la classe en \Cpp
@@ -65,7 +65,7 @@
   membres)*
 
   #+BEGIN_SRC c++
-    class particule
+    class Particule
     {
       // Déclaration de membres
       char * m_nom;
@@ -84,7 +84,7 @@
   de l'opérateur de portée =::=
 
   #+BEGIN_SRC c++
-    class particule
+    class Particule
     {
       // Déclaration de membres
       char * m_nom;
@@ -96,7 +96,7 @@
       void affiche () const;
     };
 
-    void particule::initialise (const double masse_, const double charge_)
+    void Particule::initialise (const double masse_, const double charge_)
     {
       m_masse  = masse_;
       m_charge = charge_;
@@ -104,14 +104,14 @@
     ...
   #+END_SRC
 
-* Exemple d'utilisation de la classe =particule=
+* Exemple d'utilisation de la classe =Particule=
 
 #+BEGIN_SRC c++
   #include "particule.h"
   int main ()
   {
-    // Instanciation d'objets de type particule
-    particule particule1, particule2;
+    // Instanciation d'objets de type Particule
+    Particule particule1, particule2;
 
     // Accès aux membres
     particule1.initialise (0.511, -1.6e-19);
@@ -119,15 +119,15 @@
   }
 #+END_SRC
 
-* Exemple d'utilisation de la classe =particule=
+* Exemple d'utilisation de la classe =Particule=
 
 #+BEGIN_SRC c++
   #include "particule.h"
   int main ()
   {
-    // Instanciation d'objets de type particule
-    particule * particule1 = new particule;
-    particule * particule2 = new particule;
+    // Instanciation d'objets de type Particule
+    Particule * particule1 = new Particule;
+    Particule * particule2 = new Particule;
 
     // Accès aux membres
     particule1->initialise (0.511, -1.6e-19);
@@ -152,7 +152,7 @@
 - L'accès aux membres se fait par l'intermédiaire de l'opérateur point =.=
 
   #+BEGIN_SRC c++
-    struct particule
+    struct Particule
     {
       // Déclaration de membres
       char * m_nom;
@@ -161,8 +161,8 @@
       ...
     };
 
-    // Instanciation d'objet de type particule
-    particule particule1, particule2;
+    // Instanciation d'objet de type Particule
+    Particule particule1, particule2;
 
     // Accès aux membres
     particule1.m_masse  = 0.511;
