@@ -6,7 +6,7 @@
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [cpp_teaching, nologo]
 
-* Notions de classes en POO
+* Notion de classe
 
 - Langage objet : analyse du problème en termes *de nature et de structure des
   données* \neq programmation impérative (en C ou fortran) qui relève plus de
@@ -69,7 +69,7 @@
       double m_masse;
       double m_charge;
 
-      // Déclaration des méthodes
+      // Déclaration de méthodes
       void initialise (const double masse_, const double charge_);
       void affiche () const;
     };
@@ -81,6 +81,7 @@
   de l'opérateur de portée =::=
 
   #+BEGIN_SRC c++
+    // particule.hh : déclarations
     class Particule
     {
       // Déclaration de membres
@@ -92,6 +93,7 @@
       void affiche () const;
     };
 
+    // particule.cc : définitions
     void Particule::initialise (const double masse_, const double charge_)
     {
       m_masse  = masse_;
@@ -103,7 +105,7 @@
 * Exemple d'utilisation de la classe =Particule=
 
 #+BEGIN_SRC c++
-  #include "particule.h"
+  #include "particule.hh"
   int main ()
   {
     // Instanciation d'objets de type Particule
@@ -118,7 +120,7 @@
 * Exemple d'utilisation de la classe =Particule=
 
 #+BEGIN_SRC c++
-  #include "particule.h"
+  #include "particule.hh"
   int main ()
   {
     // Instanciation d'objets de type Particule
