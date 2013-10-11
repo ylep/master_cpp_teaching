@@ -27,7 +27,7 @@
     class Particule
     {
       // Déclaration de membres
-      double m_mass;
+      double m_masse;
       double m_charge;
       ...
     };
