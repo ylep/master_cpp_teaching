@@ -12,7 +12,7 @@ files_pdf = $(files_org:.org=.pdf)
 
 all: $(files_pdf)
 
-%.pdf: %.org
+%.pdf: %.org ../README.org
 	@echo "NOTICE: Exporting $< to pdf...";
 	@$(BATCH) --visit "$<" --funcall org-latex-export-to-pdf
 #> /dev/null 2>&1;
