@@ -21,7 +21,7 @@ toutes fonctions extérieures à la classe
 * Exemple
 
 #+BEGIN_SRC c++
-  class particule
+  class Particule
   {
   private:
     // Déclaration de membres
@@ -33,17 +33,17 @@ toutes fonctions extérieures à la classe
 *Conséquence :*
 
 #+BEGIN_SRC c++
-  particule electron;
+  Particule electron;
   electron.m_masse = 0.511; // erreur de compilation
 #+END_SRC
 
 * Exemple complet (1/2)
 
 #+BEGIN_SRC c++
-  class particule
+  class Particule
   {
   public:
-    // Déclaration des getters et setters
+    // Déclaration des méthodes d'accès
     double get_masse  () const;
     double get_charge () const;
 
@@ -61,19 +61,19 @@ toutes fonctions extérieures à la classe
 
 #+BEGIN_SRC c++
   // Définition des méthodes
-  double particle::get_masse () const
+  double Particule::get_masse () const
   {
     return m_masse;
   }
 
-  void particle::set_masse (const double masse_)
+  void Particule::set_masse (double masse_)
   {
     m_masse = masse_;
   }
   ...
-  particle electron;
+  Particule electron;
   electron.set_masse (0.511);
-  const double electron_masse = electron.get_masse ();
+  double electron_masse = electron.get_masse ();
 #+END_SRC
 
 * Intérêts de L'encapsulation
@@ -93,9 +93,59 @@ toutes fonctions extérieures à la classe
      classe.
   3. l'objet est facilement réutilisable.
 
-* Inconvénients de l'encapsulation
+* Exemple d'intérêt de l'encapsulation
 
-De prime abord, peut paraître inutile et lourd à employer
+** Sans encapsulation
+:PROPERTIES:
+:BEAMER_COL: 0.3
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  class Complexe
+  {
+  public:
+    double m_reel;
+    double m_imag;
+    double m_module;
+    double m_phase;
+  };
+#+END_SRC
+
+#+ATTR_LATEX: :options [4][lrtuc][\centering][1.1][12]
+#+BEGIN_CBOX
+On peut entrer des\\
+valeurs aberrantes
+#+END_CBOX
+
+#+BEAMER: \pause
+
+** Avec encapsulation
+:PROPERTIES:
+:BEAMER_COL: 0.8
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  class Complexe
+  {
+  public:
+    double get_reel() const;
+    double get_imag() const;
+    double get_module() const;
+    double get_phase() const;
+
+    void set_reel_imag(double reel, double imag);
+    void set_module_phase(double module, double phase);
+
+  private:
+    double m_reel;
+    double m_imag;
+    double m_module;
+    double m_phase;
+  };
+#+END_SRC
+
 
 * Quelques règles élémentaires
 
@@ -155,7 +205,7 @@ La création de chaque nouvelle classe =exemple_classe= se décompose en trois
   {
     exemple_classe my_exemple_classe;
     my_exemple_classe.set_dummy (666);
-    const double my_dummy = my_example_class.get_dummy ();
+    double my_dummy = my_example_class.get_dummy ();
   }
 #+END_SRC
 
