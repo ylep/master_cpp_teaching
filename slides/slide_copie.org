@@ -1,0 +1,184 @@
+#+TITLE:  Copie d'objets
+#+AUTHOR: Xavier Garrido
+#+DATE:   28/10/2013
+#+OPTIONS: toc:nil ^:{}
+#+STARTUP:     beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [cpp_teaching, nologo]
+#+BEAMER: \setbeamercovered{invisible}
+
+* Rappel : passage par valeur, par référence
+** Passage par valeur
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void f(int i)
+  {
+    i = 10;
+    cout << "f : " << i << endl;
+  }
+
+  int main()
+  {
+    int e = 0;
+    f(e);
+    cout << "main : " << e << endl;
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<2>
+#+BEGIN_CBOX
+f : 10\\
+main : 0
+#+END_CBOX
+
+#+BEAMER: \onslide<all>
+** Passage par référence
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void g(int& i)
+  {
+    i = 10;
+    cout << "g : " << i << endl;
+  }
+
+  int main()
+  {
+    int e = 0;
+    g(e);
+    cout << "main : " << e << endl;
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<2>
+#+BEGIN_CBOX
+g : 10\\
+main : 10
+#+END_CBOX
+
+
+* Passage d'objets par valeur, par référence
+** Passage par valeur
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void f(Complexe z)
+  {
+    z.set_real_imag(2, 3);
+    cout << "f : ";
+    z.affiche();
+  }
+
+  int main()
+  {
+    Complexe p(1, 0.5);
+    f(p);
+    cout << "main : ";
+    p.affiche();
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<2>
+#+BEGIN_CBOX
+f : (2 + 3i)\\
+main : (1 + 0.5i)
+#+END_CBOX
+
+#+BEAMER: \onslide<all>
+** Passage par référence
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void g(Complexe& z)
+  {
+    z.set_real_imag(2, 3);
+    cout << "g : ";
+    z.affiche();
+  }
+
+  int main()
+  {
+    Complexe p(1, 0.5);
+    g(p);
+    cout << "main : ";
+    p.affiche();
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<2>
+#+BEGIN_CBOX
+g : (2 + 3i)\\
+main : (2 + 3i)
+#+END_CBOX
+
+* Passage d'objets par valeur, par référence
+#+BEAMER: \onslide<all>
+** Passage par valeur
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void f(Complexe z)
+  {
+    cout << "Le complexe vaut ";
+    z.affiche();
+  }
+
+  int main()
+  {
+    Complexe p(1, 0.5);
+    f(p);
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<3>
+#+BEGIN_CBOX
+L'objet est copié
+#+END_CBOX
+
+#+BEAMER: \onslide<2-3>
+** Passage par référence constante
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_ENV: cbox
+:BEAMER_OPT: [][lwuc][\footnotesize]
+:END:
+#+BEGIN_SRC c++
+  void g(const Complexe& z)
+  {
+    cout << "Le complexe vaut ";
+    z.affiche();
+  }
+
+  int main()
+  {
+    Complexe p(1, 0.5);
+    g(p);
+    return EXIT_SUCCESS;
+  }
+#+END_SRC
+
+#+BEAMER: \onslide<3>
+#+BEGIN_CBOX
+Une copie inutile est évitée
+#+END_CBOX
