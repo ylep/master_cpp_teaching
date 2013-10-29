@@ -4,7 +4,7 @@
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP:     beamer
 #+LATEX_CLASS: beamer
-#+LATEX_CLASS_OPTIONS: [cpp_teaching, nologo]
+#+LATEX_CLASS_OPTIONS: [cpp_teaching]
 
 * Définition
 
@@ -76,7 +76,7 @@ toutes fonctions extérieures à la classe
   double electron_masse = electron.get_masse ();
 #+END_SRC
 
-* Intérêts de L'encapsulation
+* Intérêts de l'encapsulation
 
 - Lors de la programmation et surtout de la réutilisation d'un objet dans un
   autre programme, l'encapsulation empêche la modification non voulue des données
