@@ -9,7 +9,8 @@
 * Surcharge d'opérateur
 
 - \Cpp permet de *surdéfinir les opérateurs* tels que ===, =+=, =-=, =*=, =/=,
-  =+==, =-==, =*==, =/==, =++=, =--=, =<<=, =new=...
+  =+==, =-==, =*==, =/==, =++=, =--=, ====, =!==, =<==, =<=, =>==, =>=, =<<=,
+  =>>=, =new=, =delete=...
 
 - L'utilisation d'un opérateur se traduit par un appel de fonction *\rightarrow
   possibilité de surdéfinir*
