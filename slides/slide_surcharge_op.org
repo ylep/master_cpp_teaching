@@ -1,0 +1,169 @@
+#+TITLE:  Surcharge d'opérateur
+#+AUTHOR: Xavier Garrido
+#+DATE:   30/09/2013
+#+OPTIONS: toc:nil ^:{}
+#+STARTUP:     beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [cpp_teaching]
+
+* Surcharge d'opérateur
+
+- \Cpp permet de *surdéfinir les opérateurs* tels que ===, =+=, =-=, =*=, =/=,
+  =+==, =-==, =*==, =/==, =++=, =--=, =<<=, =new=...
+
+- L'utilisation d'un opérateur se traduit par un appel de fonction *\rightarrow
+  possibilité de surdéfinir*
+
+- On peut ainsi utiliser les opérateurs avec des objets de type quelconque
+
+* Exemple de surcharge de l'opérateur unaire =+==
+
+#+BEGIN_SRC c++
+  // Déclaration
+  class Point
+  {
+  public:
+    Point(double x, double y);
+    double x() const;
+    double y() const;
+    Point& operator+= (const Point& p);
+  private:
+    double m_x, m_y;
+  };
+#+END_SRC
+
+#+BEAMER: \pause
+
+#+BEGIN_SRC c++
+  // Définition
+  Point& Point::operator+= (const Point& p)
+  {
+    m_x += p.x();
+    m_y += p.y();
+    return *this;
+  }
+#+END_SRC
+
+#+BEGIN_CENTER
+On utilise le pointeur =this= qui retourne l'adresse de l'objet courant
+#+END_CENTER
+
+* Exemple de surcharge de l'opérateur unaire =+==
+
+#+BEGIN_SRC c++
+  // Utilisation
+  int main ()
+  {
+    Point point1(2, 3);
+    Point point2(4, 5);
+    point1 += point2;
+    point1.affiche() // (6, 8)
+  }
+#+END_SRC
+
+* Exemple de surcharge de l'opérateur binaire =+=
+
+#+BEGIN_SRC c++
+  // Déclaration (point.hh)
+  Point operator+ (const Point& p1, const Point& p2);
+
+  // Définition (point.cc)
+  Point operator+ (const Point& p1, const Point& p2)
+  {
+    return Point (p1.x() + p2.x(), p1.y() + p2.y());
+  }
+
+  // Utilisation
+  int main()
+  {
+    Point point1 (2, 3);
+    Point point2 (4, 5);
+    (point1 + point2).affiche(); // (6, 8)
+
+    Point point3 = point1 + point2;
+    point3.affiche(); // (6, 8)
+  }
+#+END_SRC
+
+* Opérateur d'affectation ===
+
+- L'opérateur d'affectation === permet d'affecter une nouvelle valeur à un objet
+  *déjà existant*
+
+- Sa surcharge se fait comme pour n'importe quel opérateur
+
+  #+BEGIN_SRC c++
+    // Déclaration
+    class Point
+    {
+      // ...
+      Point& operator= (const Point& p);
+      // ...
+    };
+
+    // Utilisation
+    Point point1 (2, 3);
+    Point point2 (3, 4);
+    point2 = point1;
+    point2.affiche(); // (2, 3)
+  #+END_SRC
+
+
+* Opérateur d'affectation === : implémentation
+
+  - Rien n'empêche d'affecter un objet à lui-même
+
+  #+BEGIN_SRC c++
+    Point a;
+    a = a;
+  #+END_SRC
+
+  - Lorsque cette « affectation » risque de corrompre l'objet, utiliser un
+    garde-fou :
+
+  #+BEGIN_SRC c++
+    // Définition
+    Point& Point::operator= (const Point& p)
+    {
+      if (&p != this) // garde-fou
+      {
+        m_x = p.x();
+        m_y = p.y();
+      }
+      return *this;
+    }
+  #+END_SRC
+
+
+* Constructeur de recopie et opérateur d'affectation ===
+
+- \Cpp fournit un constructeur de copie et un opérateur d'affectation (ainsi
+  qu'un constructeur par défaut et un destructeur)
+
+- Lorsque ces versions triviales ne suffisent plus (cas de l'*allocation
+  dynamique*) il faut choisir entre ces deux solutions :
+
+  - Écrire une version correcte ;
+
+  - Déclarer ces membres privés, sans les définir : la copie et l'affectation
+    sont alors impossibles.
+
+    #+BEGIN_SRC c++
+      class PasDeCopie
+      {
+      private:
+        PasDeCopie(const PasDeCopie&);
+        PasDeCopie& operator= (const PasDeCopie&);
+      };
+    #+END_SRC
+
+* Constructeur de recopie et opérateur d'affectation ===
+
+Quels opérateurs, constructeurs et destructeurs sont appelés ?
+
+#+BEGIN_SRC c++
+  Point p1(2, 3);
+  Point p2 = p1;
+  Point p3 = p1 + p2;
+  p1 = p3;
+#+END_SRC
