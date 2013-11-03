@@ -73,7 +73,7 @@
 - Fondamentalement, l'appel à un opérateur est identique à l'appel d'une
   fonction *\rightarrow possibilité de surdéfinir*
 
-- Le but est de définir ces "fonctions" pour des classes dépourvues de ces
+- Le but est de définir ces « fonctions » pour des classes dépourvues de ces
   opérateurs
 
 * Exemple de surcharge de l'opérateur unaire =+==
@@ -177,7 +177,7 @@
     my_point2 = my_point1;
   #+END_SRC
 
-*  Constructeur de recopie et opérateur d'affectation ===
+* Constructeur de recopie et opérateur d'affectation ===
 
 - Le constructeur de recopie est la méthode appelée lors de la copie d'un objet
   vers un autre objet du même type
