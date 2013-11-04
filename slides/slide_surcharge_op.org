@@ -138,16 +138,16 @@ On utilise le pointeur =this= qui retourne l'adresse de l'objet courant
 
 * Constructeur de recopie et opérateur d'affectation ===
 
-- \Cpp fournit un constructeur de copie et un opérateur d'affectation (ainsi
-  qu'un constructeur par défaut et un destructeur)
+- \Cpp fournit automatiquement un constructeur de copie et un opérateur
+  d'affectation (ainsi qu'un constructeur par défaut et un destructeur)
 
-- Lorsque ces versions triviales ne suffisent plus (cas de l'*allocation
+- Lorsque ces versions triviales ne suffisent pas (cas de l'*allocation
   dynamique*) il faut choisir entre ces deux solutions :
 
   - Écrire une version correcte ;
 
-  - Déclarer ces membres privés, sans les définir : la copie et l'affectation
-    sont alors impossibles.
+  - Rendre impossibles la copie et l'affectation, en déclarant ces membres
+    privés, sans les définir :
 
     #+BEGIN_SRC c++
       class PasDeCopie
