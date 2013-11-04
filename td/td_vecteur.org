@@ -1,0 +1,124 @@
+#+TITLE:  Surcharge d'opérateurs, récapitulatif sur les classes
+#+AUTHOR: Yann Leprince
+#+DATE:   03/11/2013
+#+OPTIONS: toc:nil
+#+LATEX_CLASS: lecture
+#+LATEX_CLASS_OPTIONS: [10pt,a4paper,cpp_teaching_classes]
+#+LATEX_HEADER: \setcounter{chapter}{4}
+
+
+* Classe Complexe : suite et fin
+
+Reprenez la classe =Complexe= du TD précédent et définissez les opérateurs
+pertinents :
+
+#+BEGIN_SRC c++
+  Complexe& Complexe::operator = (const Complexe&);
+
+  Complexe operator + (const Complexe&, const Complexe&);
+  Complexe operator - (const Complexe&, const Complexe&);
+  Complexe operator * (const Complexe&, const Complexe&);
+  Complexe operator / (const Complexe&, const Complexe&);
+
+  Complexe& Complexe::operator += (const Complexe&);
+  Complexe& Complexe::operator -= (const Complexe&);
+  Complexe& Complexe::operator *= (const Complexe&);
+  Complexe& Complexe::operator /= (const Complexe&);
+
+  bool operator == (const Complexe&, const Complexe&);
+  bool operator != (const Complexe&, const Complexe&);
+
+  std::ostream& operator << (std::ostream&, const Complexe&);
+#+END_SRC
+
+* Classe Vecteur
+
+Vous allez écrire une classe Vecteur, qui vous permettra de manipuler des
+vecteurs dans un espace vectoriel de dimension finie quelconque. La taille du
+vecteur pourra être choisie dynamiquement. Chaque élément sera un flottant en
+double précision.
+
+Pour cet exercice vous devrez télécharger le fichier =exo_vecteur.tar.gz=,
+l'extraire avec =tar -zxf exo_vecteur.tar.gz=. Vous travaillerez dans le
+répertoire =exo_vecteur= ainsi créé. Toutes les déclarations devront se trouver
+dans un fichier =vecteur.hh=, les définitions dans un fichier =vecteur.cc=. Des
+programmes de test vous sont fournis, vous pouvez utiliser le script =tests.sh=
+pour compiler et lancer tous les tests : =./tests.sh=. Utilisez ce script à
+chaque étape de l'exercice pour vérifier ce que vous avez écrit.
+
+1. Écrivez l'interface de base de la classe Vecteur :
+
+   - Un constructeur =Vecteur(unsigned int n)= alloue la mémoire nécessaire pour
+     un vecteur de taille =n=.
+
+   - Une méthode =size()= retourne la taille du vecteur.
+
+   - Une méthode =get(unsigned int i)= retourne l'élément de rang =i=.
+
+   - Une méthode =set(unsigned int i, float valeur)= met la =valeur= dans
+    l'élément de rang =i=.
+
+   N'oubliez pas de redéfinir si besoin les méthodes générées automatiquement
+   par le compilateur (constructeur par défaut, de recopie, destructeur,
+   opérateur d'affectation).
+
+   Testez votre classe grâce au fichier fourni =test1.cc= (=./tests.sh=).
+   Résolvez tous les problèmes avant de passer à la suite !
+
+2. Lorsque l'interface de base est fonctionnelle, écrivez un opérateur =<<=,
+   qui vous permettra d'envoyer un =Vecteur= vers =std::cout= pour l'affichage.
+
+   Pour rappel, le prototype de cet opérateur est :
+
+   #+BEGIN_SRC c++
+     std::ostream& operator << (std::ostream& os, const Vecteur& v);
+   #+END_SRC
+
+   Avant la déclaration de cet opérateur l'existence de la classe
+   =std::ostream= doit être connue du compilateur, ce qui nécessite d'inclure
+   =<iosfwd>=.
+
+   Avant la définition de cet opérateur la classe =std::ostream= doit être
+   connu du compilateur, ce qui nécessite d'inclure =<ostream>=. Pour envoyer
+   un élément dans le flux =os=, la syntaxe est la même qu'avec =std::cout= :
+   =os << ...=.
+
+   Testez grâce au fichier fourni =test2.cc= (=./tests.sh=).
+
+3. Ensuite, ajoutez :
+
+   - Une méthode =resize(unsigned int)= pour changer la taille du vecteur en
+     conservant les valeurs existantes.
+
+   - Une méthode =norm()= calculant la norme euclidienne du vecteur.
+
+   Testez grâce au fichier fourni =test3.cc= (=./tests.sh=).
+
+4. Si ce n'est déjà fait, écrivez un constructeur de copie et un opérateur
+   d'affectation. Testez grâce au fichier fourni =test4.cc= (=./tests.sh=).
+
+5. Écrivez l'opérateur =[]= pour accéder aux éléments du vecteur comme à ceux
+   d'un tableau :
+
+  #+BEGIN_SRC c++
+    double operator [] (unsigned int i) const;
+    double& operator [] (unsigned int i);
+  #+END_SRC
+
+6. Écrivez les autres opérateurs pertinents :
+
+  #+BEGIN_SRC c++
+    Vecteur operator + (const Vecteur&, const Vecteur&);
+    Vecteur operator - (const Vecteur&, const Vecteur&);
+    Vecteur operator * (const Vecteur&, double);
+    Vecteur operator * (double, const Vecteur&);
+    Vecteur operator / (const Vecteur&, double);
+
+    Vecteur& Vecteur::operator += (const Vecteur&);
+    Vecteur& Vecteur::operator -= (const Vecteur&);
+    Vecteur& Vecteur::operator *= (double);
+    Vecteur& Vecteur::operator /= (double);
+
+    bool operator == (const Vecteur&, const Vecteur&);
+    bool operator != (const Vecteur&, const Vecteur&);
+  #+END_SRC
