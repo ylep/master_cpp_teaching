@@ -55,7 +55,7 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
 
    - Une méthode =get(unsigned int i)= retourne l'élément de rang =i=.
 
-   - Une méthode =set(unsigned int i, float valeur)= met la =valeur= dans
+   - Une méthode =set(unsigned int i, double valeur)= met la =valeur= dans
     l'élément de rang =i=.
 
    N'oubliez pas de redéfinir si besoin les méthodes générées automatiquement
@@ -80,8 +80,11 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
 
    Avant la définition de cet opérateur la classe =std::ostream= doit être
    connu du compilateur, ce qui nécessite d'inclure =<ostream>=. Pour envoyer
-   un élément dans le flux =os=, la syntaxe est la même qu'avec =std::cout= :
-   =os << ...=.
+   un élément dans le flux =os=, la syntaxe est la même qu'avec =std::cout= :
+
+   #+BEGIN_SRC c++
+     os << ... << ...;
+   #+END_SRC
 
    Testez grâce au fichier fourni =test2.cc= (=./tests.sh=).
 
