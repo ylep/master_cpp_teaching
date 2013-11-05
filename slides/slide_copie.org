@@ -1,5 +1,5 @@
 #+TITLE:  Copie d'objets
-#+AUTHOR: Xavier Garrido
+#+AUTHOR: Yann Leprince
 #+DATE:   28/10/2013
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP:     beamer
@@ -30,7 +30,7 @@
   }
 #+END_SRC
 
-#+BEAMER: \onslide<2>
+#+BEAMER: \onslide<2>\tt
 #+BEGIN_CBOX
 f : 10\\
 main : 0
@@ -59,12 +59,11 @@ main : 0
   }
 #+END_SRC
 
-#+BEAMER: \onslide<2>
+#+BEAMER: \onslide<2>\tt
 #+BEGIN_CBOX
 g : 10\\
 main : 10
 #+END_CBOX
-
 
 * Passage d'objets par valeur, par référence
 ** Passage par valeur
@@ -91,7 +90,7 @@ main : 10
   }
 #+END_SRC
 
-#+BEAMER: \onslide<2>
+#+BEAMER: \onslide<2>\tt
 #+BEGIN_CBOX
 f : (2 + 3i)\\
 main : (1 + 0.5i)
@@ -122,7 +121,7 @@ main : (1 + 0.5i)
   }
 #+END_SRC
 
-#+BEAMER: \onslide<2>
+#+BEAMER: \onslide<2>\tt
 #+BEGIN_CBOX
 g : (2 + 3i)\\
 main : (2 + 3i)
@@ -151,12 +150,13 @@ main : (2 + 3i)
   }
 #+END_SRC
 
-#+BEAMER: \onslide<3>
+#+BEAMER: \onslide<2>
+#+ATTR_LATEX: :options [][][\centering]
 #+BEGIN_CBOX
 L'objet est copié
 #+END_CBOX
 
-#+BEAMER: \onslide<2-3>
+#+BEAMER: \onslide<all>
 ** Passage par référence constante
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -178,11 +178,11 @@ L'objet est copié
   }
 #+END_SRC
 
-#+BEAMER: \onslide<3>
+#+BEAMER: \onslide<2>
+#+ATTR_LATEX: :options [][][\centering]
 #+BEGIN_CBOX
 Une copie inutile est évitée
 #+END_CBOX
-
 
 * Objets constants
 
@@ -206,7 +206,6 @@ Le mot-clé =const= interdit la modification de l'objet auquel il s'applique.
 
 Le compilateur doit savoir quelles méthodes modifient l'objet.
 
-
 * Méthodes et « =const=-correctness »
 
 Le prototype d'une méthode doit se terminer par =const= si celle-ci ne
@@ -225,20 +224,16 @@ modifie pas l'objet :
 
 #+BEAMER: \pause
 
-Par défaut les méthodes peuvent modifier l'objet.
+- Par défaut les méthodes peuvent modifier l'objet.
 
-En cas d'oubli de =const=, la méthode ne peut donc pas être utilisée sur des
-objets constants.
-
+- En cas d'oubli de =const=, la méthode ne peut donc pas être utilisée sur des
+  objets constants.
 
 * Copier un objet
-
-\Cpp permet de définir comment copier un objet.
 
 La copie est la création d'un nouvel objet ayant la même valeur qu'un objet
 existant.
 
-#+BEAMER: \pause
 #+BEGIN_SRC c++
   class Point
   {
@@ -251,7 +246,6 @@ existant.
     int m_y;
   };
 #+END_SRC
-
 
 * Copier un objet : le constructeur de copie
 
@@ -271,12 +265,11 @@ Exemple de définition d'un constructeur de copie :
 
 #+BEAMER: \pause
 
-En l'absence de constructeur de copie le compilateur en génère un
-automatiquement : il copie une à une les valeurs des membres.
+- En l'absence de constructeur de copie le compilateur en génère un
+  automatiquement : il copie une à une les valeurs des membres.
 
-Lorsqu'une classe gère de la mémoire allouée dynamiquement, un constructeur de
-copie est donc *indispensable*.
-
+- Lorsqu'une classe gère de la mémoire allouée dynamiquement, un constructeur de
+  copie est donc *indispensable*.
 
 * Exemple de copie inévitable
 
@@ -295,7 +288,6 @@ Parfois on ne peut pas éviter de copier un objet :
 
 La valeur de retour de =f= est copiée dans le nouvel objet =z=.
 
-
 * Exemple de copie évitable
 
 Mais on peut souvent éviter des copies inutiles :
@@ -303,8 +295,6 @@ Mais on peut souvent éviter des copies inutiles :
 ** Copie inutile
 :PROPERTIES:
 :BEAMER_COL: 0.5
-:BEAMER_ENV: cbox
-:BEAMER_OPT: [][lwuc][\footnotesize]
 :END:
 
 #+BEGIN_SRC c++
@@ -315,15 +305,16 @@ Mais on peut souvent éviter des copies inutiles :
   }
 #+END_SRC
 
+#+ATTR_LATEX: :options [][lwuc][\centering\footnotesize]
+#+BEGIN_CBOX
 La variable locale =z= est copiée dans un objet anonyme retourné par la
 fonction.
+#+END_CBOX
 
 #+BEAMER: \pause
 ** Sans copie inutile
 :PROPERTIES:
 :BEAMER_COL: 0.5
-:BEAMER_ENV: cbox
-:BEAMER_OPT: [][lwuc][\footnotesize]
 :END:
 
 #+BEGIN_SRC c++
@@ -333,7 +324,9 @@ fonction.
   }
 #+END_SRC
 
-Il n'y a plus de variable locale.
+#+BEAMER: \vspace{0.7em}
 
-L'objet anonyme est construit\\
-directement.
+#+ATTR_LATEX: :options [][lwuc][\centering\footnotesize]
+#+BEGIN_CBOX
+Il n'y a plus de variable locale. L'objet anonyme est construit directement.
+#+END_CBOX

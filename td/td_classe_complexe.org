@@ -76,7 +76,7 @@ Sur le même modèle, écrire une classe =Fraction=, possédant :
 - =approx= : qui retourne la valeur approchée de la fraction par un =double=.
 
 
-* Classe =FractionComplexe=
+* Classe =FractionComplexe= :noexport:
 
 Utiliser les deux classes précédentes pour afficher les fractions de complexes
 sous la forme
