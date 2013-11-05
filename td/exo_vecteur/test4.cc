@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int main()
+bool test()
 {
   Vecteur v3(3);
   v3.set(0, 7.0);
@@ -19,7 +19,7 @@ int main()
   if(size != 3)
   {
     cout << "Le vecteur copié a la taille " << size << " au lieu de 3" << endl;
-    return EXIT_FAILURE;
+    return false;
   }
   if(v_copie.size() != v3.size() ||
      v_copie.get(0) != v3.get(0) ||
@@ -27,7 +27,7 @@ int main()
      v_copie.get(2) != v3.get(2))
   {
     cout << "Le vecteur copié est " << v_copie << " au lieu de " << v3 << endl;
-    return EXIT_FAILURE;
+    return false;
   }
 
   Vecteur v(0);
@@ -36,7 +36,7 @@ int main()
   if(size != 3)
   {
     cout << "Le vecteur affecté a la taille " << size << " au lieu de 3" << endl;
-    return EXIT_FAILURE;
+    return false;
   }
   if(v.size() != v3.size() ||
      v.get(0) != v3.get(0) ||
@@ -44,9 +44,22 @@ int main()
      v.get(2) != v3.get(2))
   {
     cout << "Le vecteur affecté est " << v << " au lieu de " << v3 << endl;
-    return EXIT_FAILURE;
+    return false;
   }
 
-  cout << "Test 4 réussi !" << endl;
-  return EXIT_SUCCESS;
+  return true;
+}
+
+int main()
+{
+  // Avec une fonction de test annexe les erreurs dans les destructeurs
+  // apparaissent avant le message de succès
+  bool succes = test();
+
+  if(succes) {
+    cout << "Test 4 réussi !" << endl;
+    return EXIT_SUCCESS;
+  } else {
+    return EXIT_FAILURE;
+  }
 }

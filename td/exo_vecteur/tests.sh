@@ -23,3 +23,7 @@ compilation 1 \
 && execution 3 \
 && compilation 4 \
 && execution 4 \
+&& compilation 5 \
+&& execution 5 \
+&& compilation 6 \
+&& execution 6 \

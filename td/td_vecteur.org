@@ -108,6 +108,8 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
     double& operator [] (unsigned int i);
   #+END_SRC
 
+  Testez grâce au fichier fourni =test5.cc= (=./tests.sh=).
+
 6. Écrivez les autres opérateurs pertinents :
 
   #+BEGIN_SRC c++
@@ -125,3 +127,5 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
     bool operator == (const Vecteur&, const Vecteur&);
     bool operator != (const Vecteur&, const Vecteur&);
   #+END_SRC
+
+   Testez grâce au fichier fourni =test6.cc= (=./tests.sh=).
