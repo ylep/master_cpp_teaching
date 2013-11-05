@@ -1,4 +1,4 @@
-#include "vecteur.hh"
+#include <vecteur.hh>
 
 #include <cstdlib>
 #include <iostream>
