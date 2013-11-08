@@ -6,15 +6,17 @@ BATCH=$(EMACS) --batch --no-init-file									\
         '((sh . t)))"											\
   --eval "(setq org-confirm-babel-evaluate nil)"							\
   --eval "(setq c-standard-font-lock-fontify-region-function 'font-lock-default-fontify-region)"	\
+  --eval '(org-babel-load-file   "./README.org")'                                                       \
   --eval '(org-babel-tangle-file "./README.org")'							\
-  --eval '(org-babel-load-file   "./README.org")'
+
+SUBDIRS_ALL = lectures td slides
 
 all: html
 
 html:
-	@mkdir -p doc/stylesheets
-	@$(BATCH) --visit "README.org" --funcall org-publish-cpp
-	@rm -f README.el
+	@echo "NOTICE: Generating html documentation..."
+	@$(BATCH) --visit "README.org" --funcall org-publish-cpp > /dev/null 2>&1
+	@rm -f README.el *.sty
 	@find doc -name *.*~ | xargs rm -f
 	@tar czvf /tmp/org-cpp-publish.tar.gz index.html doc
 	@git checkout gh-pages
@@ -22,5 +24,11 @@ html:
 	@if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
 	@git checkout master
 
+pdf:
+	@for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir || exit $$?; done
+
 clean:
 	@rm -rf doc index.html
+
+clean-all: clean
+	@for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir clean || exit $$?; done
