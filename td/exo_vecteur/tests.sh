@@ -7,10 +7,12 @@ reset=$(tput sgr0 2>/dev/null)
 etape=$(tput bold 2>/dev/null)$(tput setaf 4 2>/dev/null)
 
 compilation () {
-    echo "${etape}Compilation du test $1"
-    echo g++ -Wall -Wextra -g -I. -o test$1 "$testdir"/test$1.cc vecteur.cc${reset}
+    N=$1
+    shift
+    echo "${etape}Compilation du test $N"
+    echo g++ -Wall -Wextra -g -I. -o test$N "$testdir"/test$N.cc vecteur.cc "$@" ${reset}
 
-    g++ -Wall -Wextra -g -I. -o test$1 "$testdir"/test$1.cc vecteur.cc
+    g++ -Wall -Wextra -g -I. -o test$N "$testdir"/test$N.cc vecteur.cc "$@"
 }
 
 execution () {
@@ -28,3 +30,5 @@ compilation 1 && execution 1 \
 && compilation 4 && execution 4 \
 && compilation 5 && execution 5 \
 && compilation 6 && execution 6 \
+&& compilation 7 vecteur_euclidien.cc && execution 7 \
+&& compilation 8 vecteur_euclidien.cc && execution 8 \

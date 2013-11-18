@@ -4,32 +4,7 @@
 #+OPTIONS: toc:nil
 #+LATEX_HEADER: \setcounter{chapter}{4}
 
-
-* Classe Complexe : suite et fin
-
-Reprenez la classe =Complexe= du TD précédent et définissez les opérateurs
-pertinents :
-
-#+BEGIN_SRC c++
-  Complexe& Complexe::operator = (const Complexe&);
-
-  Complexe operator + (const Complexe&, const Complexe&);
-  Complexe operator - (const Complexe&, const Complexe&);
-  Complexe operator * (const Complexe&, const Complexe&);
-  Complexe operator / (const Complexe&, const Complexe&);
-
-  Complexe& Complexe::operator += (const Complexe&);
-  Complexe& Complexe::operator -= (const Complexe&);
-  Complexe& Complexe::operator *= (const Complexe&);
-  Complexe& Complexe::operator /= (const Complexe&);
-
-  bool operator == (const Complexe&, const Complexe&);
-  bool operator != (const Complexe&, const Complexe&);
-
-  std::ostream& operator << (std::ostream&, const Complexe&);
-#+END_SRC
-
-* Classe Vecteur
+* Classe =Vecteur=
 
 Vous allez écrire une classe Vecteur, qui vous permettra de manipuler des
 vecteurs dans un espace vectoriel de dimension finie quelconque. La taille du
@@ -91,8 +66,6 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
    - Une méthode =resize(unsigned int)= pour changer la taille du vecteur en
      conservant les valeurs existantes.
 
-   - Une méthode =norm()= calculant la norme euclidienne du vecteur.
-
    Testez grâce au fichier fourni =test3.cc= (=./tests.sh=).
 
 4. Si ce n'est déjà fait, écrivez un constructeur de copie et un opérateur
@@ -127,3 +100,23 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
   #+END_SRC
 
    Testez grâce au fichier fourni =test6.cc= (=./tests.sh=).
+
+
+* Classe =VecteurEuclidien=
+
+1. Dérivez une classe =VecteurEuclidien= ayant pour base la classe =Vecteur=
+   (vous placerez sa déclaration dans un fichien =vecteur_euclidien.hh=. Cette
+   classe représente un vecteur plongé dans un espace euclidien, et pour lequel
+   sont donc définis une norme et un produit scalaire. Définissez les
+   mêmes constructeurs que pour la classe de base.
+
+   Testez grâce au fichier fourni =test7.cc= (=./tests.sh=).
+
+2. Implémentez :
+
+   - une méthode =norm()= calculant la norme euclidienne du vecteur;
+
+   - une fonction =dot= qui prend en argument deux objets de type
+     =VecteurEuclidien=, et qui retourne la valeur de leur produit scalaire.
+
+   Testez grâce au fichier fourni =test8.cc= (=./tests.sh=).

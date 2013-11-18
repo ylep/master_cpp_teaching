@@ -27,19 +27,6 @@ int main()
     return EXIT_FAILURE;
   }
 
-  Vecteur v2(2);
-  v2.set(0, 3.0);
-  v2.set(1, 4.0);
-
-  const Vecteur& v2ref = v2;
-  const double norm = v2ref.norm();
-  if(!(std::abs(norm - 5.0) < 1e-3))
-  {
-    cout << "La norme du vecteur (3, 4) a retourné " << norm
-         << " au lieu de 5" << endl;
-    return EXIT_FAILURE;
-  }
-
   cout << "Test 3 réussi !" << endl;
   return EXIT_SUCCESS;
 }

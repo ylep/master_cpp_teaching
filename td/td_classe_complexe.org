@@ -49,6 +49,29 @@ S'assurer que les constructeurs et toutes les méthodes de modification
 préservent la synchronisation entre les quatre valeurs stockées.
 
 
+* Opérateurs de la classe =Complexe=
+
+Définissez les opérateurs pertinents de la classe =Complexe= :
+
+#+BEGIN_SRC c++
+  Complexe& Complexe::operator = (const Complexe&);
+
+  Complexe operator + (const Complexe&, const Complexe&);
+  Complexe operator - (const Complexe&, const Complexe&);
+  Complexe operator * (const Complexe&, const Complexe&);
+  Complexe operator / (const Complexe&, const Complexe&);
+
+  Complexe& Complexe::operator += (const Complexe&);
+  Complexe& Complexe::operator -= (const Complexe&);
+  Complexe& Complexe::operator *= (const Complexe&);
+  Complexe& Complexe::operator /= (const Complexe&);
+
+  bool operator == (const Complexe&, const Complexe&);
+  bool operator != (const Complexe&, const Complexe&);
+
+  std::ostream& operator << (std::ostream&, const Complexe&);
+#+END_SRC
+
 * Classe =Fraction=
 
 Sur le même modèle, écrire une classe =Fraction=, possédant :
