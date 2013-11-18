@@ -5,7 +5,7 @@
 #+STARTUP:     beamer
 #+LATEX_CLASS: cpp-slide
 
-* Introduction
+* Notion d'héritage
 
 - L'héritage est un nouveau moyen de faire interagir les classes entre elles par
   le biais de *relations hiérarchiques*
@@ -28,7 +28,7 @@
   \end{center}
 #+END_SRC
 
-* Introduction
+* Notion d'héritage
 
 #+BEGIN_SRC latex
   \begin{center}
@@ -62,7 +62,8 @@
   - [\rightarrow] la *classe fille* ou *classe dérivée* est une
     *spécialisation* de sa classe de base =Mère=.
 
-* Notions d'héritage simple
+
+* Héritage : syntaxe
 
 #+BEGIN_SRC c++
   class Polygone
@@ -85,8 +86,7 @@
 #+END_SRC
 
 #+BEAMER: \pause
-- La relation d'héritage est matérialisée par l'usage de la directive *=public
-  Polygone=*
+- La relation d'héritage est implémentée par la syntaxe *=: public Polygone=*
 
 
 * Appels des constructeurs et destructeurs
@@ -95,8 +95,8 @@
   class Polygone
   {
   public:
-    Polygone (const unsigned int nbr_segment)
-      : m_nombre_segment (nbr_segment) {}
+    Polygone(const unsigned int nbr_segment)
+      : m_nombre_segment(nbr_segment) {}
   private:
     unsigned int m_nombre_segment;
   };
@@ -104,29 +104,30 @@
   class Rectangle : public Polygone
   {
   public:
-    Rectangle (const double longueur, const double largeur)
-      : Polygone (4),
-        m_longueur (longueur), m_largeur (largeur) {}
+    Rectangle(const double longueur, const double largeur)
+      : Polygone(4),
+        m_longueur(longueur), m_largeur(largeur) {}
   };
 #+END_SRC
 
 * Appels des constructeurs et destructeurs
 
-- À la construction d'une classe fille, le constructeur de la classe mère est
-  appelé *_avant_* toute autre opération
+- À la construction d'un objet de la classe dérivée, le constructeur de la
+  classe de base est appelé *_avant_* celui de la classe dérivée
 
-- Lors de la destruction d'une classe fille, le destructeur de la classe de base
-  est appelé automatiquement *_après_* le destructeur de la classe fille
+- Lors de la destruction de cet objet, le destructeur de la classe de base est
+  appelé automatiquement *_après_* le destructeur de la classe dérivée
+
 
 * Statut des membres et méthodes de classe
 
-- =private= :: les membres ne sont accessibles qu'aux méthodes de la classe
+- =private= :: les membres ne sont accessibles qu'aux méthodes de la classe.
 - =protected= :: les membres sont accessibles aux méthodes de la classe de base
                  ainsi qu'aux classes dérivées. Ils demeurent toutefois
-                 inaccessibles à l'utilisateur de la classe contrairement au
-                 statut =public=
-- =public= :: les membres sont accessibles non seulement aux méthodes mais
-              également à l'utilisateur de la classe
+                 inaccessibles à l'utilisateur de la classe, tout comme les
+                 membres privés.
+- =public= :: les membres sont toujours accessibles.
+
 
 * Relations entre classes
 
@@ -134,8 +135,8 @@ Il faut bien distinguer les deux liens logiques que sont la composition et
 l'héritage:
 
 - Composition :: relation de type *_possède un_*; un =Polygone= possède un
-                 ensemble de =Point=
-- Héritage :: relation de type *_est un_*; un =Rectangle= est un =Polygone=
+                 ensemble de =Point= ;
+- Héritage :: relation de type *_est un_*; un =Rectangle= est un =Polygone=.
 
 
 * Conception d'un programme
@@ -143,9 +144,9 @@ l'héritage:
 Pour concevoir un programme orienté objet, le développeur procède de la façon
 suivante :
 
-1. *Répertorier* les objets nécessaires à la description du problème ;
+1. *Faire l'inventaire* des objets nécessaires à la description du problème ;
 
-2. *Réfléchir* aux liens logiques entre ces objets (composition, héritage) ;
+2. *Décider des liens logiques* entre ces objets (composition, héritage) ;
 
 3. *Implémenter* ces objets /i.e./ déclarer les méthodes puis les définir ;
 
