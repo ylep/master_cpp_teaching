@@ -15,20 +15,20 @@ all: html
 
 html:
 	@echo "NOTICE: Generating html documentation..."
-	@$(BATCH) --visit "README.org" --funcall org-publish-cpp > /dev/null 2>&1
-	@rm -f README.el *.sty
-	@find doc -name *.*~ | xargs rm -f
-	@tar czvf /tmp/org-cpp-publish.tar.gz index.html doc
-	@git checkout gh-pages
-	@tar xzvf /tmp/org-cpp-publish.tar.gz
-	@if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
-	@git checkout master
+	$(BATCH) --visit "README.org" --funcall org-publish-cpp
+	rm -f README.el *.sty
+	find doc -name *.*~ | xargs rm -f
+	tar czvf /tmp/org-cpp-publish.tar.gz index.html doc
+	git checkout gh-pages
+	tar xzvf /tmp/org-cpp-publish.tar.gz
+	if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
+	git checkout master
 
 pdf:
-	@for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir || exit $$?; done
+	for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir || exit $$?; done
 
 clean:
-	@rm -rf doc index.html
+	rm -rf doc index.html
 
 clean-all: clean
-	@for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir clean || exit $$?; done
+	for dir in $(SUBDIRS_ALL); do $(MAKE) -C $$dir clean || exit $$?; done

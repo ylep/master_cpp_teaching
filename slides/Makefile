@@ -15,8 +15,8 @@ all: $(files_pdf)
 
 %.pdf: %.org ../README.org
 	@echo "NOTICE: Exporting $< to pdf..."
-	@$(BATCH) --visit "$<" --funcall cpp-export-slides > /dev/null 2>&1
-	@rm -f ../*.sty
+	$(BATCH) --visit "$<" --funcall cpp-export-slides
+	rm -f ../*.sty
 
 clean:
-	@rm -rf latex.d *.tex *.pdf *.fdb* *~
+	rm -rf latex.d *.tex *.pdf *.fdb* *~
