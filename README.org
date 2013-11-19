@@ -258,6 +258,7 @@ different booleans used in the nex section.
 ****** Package requirements
 ******* =hyperref= package
 #+BEGIN_SRC latex
+  \RequirePackage{hyperref}
   \hypersetup{
     xetex,
     colorlinks=true,
