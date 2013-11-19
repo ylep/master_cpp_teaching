@@ -105,7 +105,7 @@ chaque étape de l'exercice pour vérifier ce que vous avez écrit.
 * Classe =VecteurEuclidien=
 
 1. Dérivez une classe =VecteurEuclidien= ayant pour base la classe =Vecteur=
-   (vous placerez sa déclaration dans un fichien =vecteur_euclidien.hh=. Cette
+   (vous placerez sa déclaration dans un fichier =vecteur_euclidien.hh=. Cette
    classe représente un vecteur plongé dans un espace euclidien, et pour lequel
    sont donc définis une norme et un produit scalaire. Définissez les
    mêmes constructeurs que pour la classe de base.
