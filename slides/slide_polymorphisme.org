@@ -1,0 +1,366 @@
+#+TITLE:  Polymorphisme
+#+AUTHOR: Xavier Garrido
+#+DATE:   29/09/2013
+#+OPTIONS: toc:nil ^:{}
+#+STARTUP:     beamer
+#+LATEX_CLASS: cpp-slide
+#+LATEX_HEADER:\newcommand{\ttb}[1]{\textcolor{black}{#1}}
+#+LATEX_HEADER:\newcommand{\ttg}[1]{\textcolor{green}{#1}}
+
+* Rappel sur l'héritage
+
+#+BEGIN_SRC c++
+  class Polygone
+  {
+  private:
+    unsigned int m_nombre_segment;
+  };
+
+  class Rectangle : public Polygone
+  {
+  public:
+    void set_largeur(double largeur);
+
+  private:
+    double m_longueur;
+    double m_largeur;
+  };
+#+END_SRC
+
+- La relation d'héritage est matérialisée par l'usage de la directive *=public
+  Polygone=*
+
+* Rappel sur l'héritage
+
+#+BEGIN_SRC c++
+  Polygone::Polygone(const unsigned int nbr_segment)
+    : m_nombre_segment(nbr_segment)
+  {
+  }
+
+  Rectangle::Rectangle(const double longueur, const double largeur)
+    : Polygone(4),
+      m_longueur(longueur), m_largeur(largeur)
+  {
+  }
+#+END_SRC
+
+- Le constructeur de la classe dérivée appelle le constructeur de la classe de
+  base, qui est exécuté en premier.
+
+- Le destructeur de la classe dérivée est appelé avant celui de la classe de
+  base.
+
+* Liaison statique
+
+** Classe =Polygone=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Polygone
+  {
+  public:
+    void affiche() const {
+      std::cout << "Polygone à "
+        << nombre_segment()
+        << " côtés";
+    };
+  };
+#+END_SRC
+** Classe =Rectangle=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Rectangle : public Polygone
+  {
+  public:
+    void affiche() const {
+      std::cout << "Rectangle "
+        << longueur() << "×"
+        << largeur();
+    };
+  };
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+** Programme principal
+:PROPERTIES:
+:BEAMER_COL: 0.7
+:END:
+#+BEGIN_SRC c++
+  int main()
+  {
+    Polygone mon_polygone(3);
+    Rectangle mon_rectangle(10, 5);
+    mon_polygone.affiche(); // Polygone à 3 côtés
+    mon_rectangle.affiche(); // Rectangle 10×5
+  }
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+- On peut redéfinir une méthode de la classe mère.
+
+* Liaison statique
+
+** Classe =Polygone=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Polygone
+  {
+  public:
+    void affiche() const {
+      std::cout << "Polygone à "
+        << nombre_segment()
+        << " côtés";
+    };
+  };
+#+END_SRC
+** Classe =Rectangle=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Rectangle : public Polygone
+  {
+  public:
+    void affiche() const {
+      std::cout << "Rectangle "
+        << longueur() << "×"
+        << largeur();
+    };
+  };
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+** Programme principal
+:PROPERTIES:
+:BEAMER_COL: 0.7
+:END:
+#+BEGIN_SRC c++
+  int main()
+  {
+    Polygone mon_polygone(3);
+    Rectangle mon_rectangle(10, 5);
+    mon_polygone.affiche(); // Polygone à 3 côtés
+    mon_rectangle.Polygone::affiche(); // Polygone à 4 côtés
+  }
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+- La fonction de la classe de base est « cachée » mais on peut l'appeler
+  explicitement.
+
+* Liaison statique
+
+#+BEGIN_SRC c++
+  void affiche_polygone(const Polygone& poly)
+  {
+    poly.affiche();
+  }
+
+  int main()
+  {
+    Polygone mon_polygone(3);
+    Rectangle mon_rectangle(10, 5);
+    affiche_polygone(mon_polygone);
+    affiche_polygone(mon_rectangle);
+  }
+#+END_SRC
+
+#+BEAMER: \setbeamercovered{invisible}
+#+BEAMER: \pause
+
+- Dans les deux cas la méthode =Polygone::affiche= est appelée
+
+- La méthode =Polygone::affiche= est dite *liée statiquement*
+
+- L'utilisation *polymorphique* de la classe =Polygone= n'est pas supportée par
+  la méthode =affiche=
+
+
+* Liaison dynamique
+
+** Classe =Polygone=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Polygone
+  {
+  public:
+    virtual void affiche() const;
+  };
+#+END_SRC
+** Classe =Rectangle=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Rectangle : public Polygone
+  {
+  public:
+    virtual void affiche() const;
+  };
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+** Programme principal
+:PROPERTIES:
+:BEAMER_COL: 0.7
+:END:
+#+BEGIN_SRC c++
+  void affiche_polygone(const Polygone& poly)
+  {
+    poly.affiche();
+  }
+  int main()
+  {
+    Polygone mon_polygone(3);
+    Rectangle mon_rectangle(10, 5);
+    affiche_polygone(mon_polygone);
+    affiche_polygone(mon_rectangle);
+  }
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+
+- Le mot-clé =virtual= indique la *liaison dynamique*
+
+- La méthode à appeler est déterminée à l'exécution, selon le type *spécialisé*
+  de l'objet
+
+* Récapitulatif
+
+#+BEGIN_CENTER
+*polymorphisme*
+
+=
+
+accès aux membres d'une classe dérivée au travers d'une référence ou d'un
+pointeur du type de base
+#+END_CENTER
+
+#+BEAMER: \pause
+
+- La *liaison statique* est utilisée par défaut
+
+  - Convient aux classes sans utilisation polymorphique
+
+  - On peut redéfinir des méthodes mais _attention_ elles ne seront pas prises
+    en compte dans le cas d'une utilisation polymorphique (à bannir)
+
+- La *liaison dynamique* nécessite le mot-clé =virtual=
+
+  - La méthode de la classe spécialisée est appelée
+
+  - Permet une utilisation polymorphique de la classe
+
+  - La sélection de la méthode se fait lors de l'exécution
+
+
+* Classes abstraites
+
+- Parfois la classe de base ne peut pas fournir d'implémentation pour une
+  méthode virtuelle
+
+  #+BEGIN_SRC c++
+    class Polygone
+    {
+    public:
+      virtual double aire() const;
+    };
+  #+END_SRC
+
+#+BEAMER: \pause
+- La méthode peut alors être déclarée *virtuelle pure*
+
+  #+BEGIN_SRC c++
+    class Polygone
+    {
+    public:
+      virtual double aire() const = 0;
+    };
+  #+END_SRC
+
+#+BEAMER: \pause
+- La classe ne peut alors pas être instanciée car une méthode manque : elle est
+  dite *classe abstraite*.
+
+
+* Classes abstraites
+
+** Classe =Polygone=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Polygone
+  {
+  public:
+    virtual void affiche() const;
+    virtual double aire() const = 0;
+  };
+#+END_SRC
+
+** <empty>
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+#+BEAMER: \vspace{2ex}
+
+** Classe =Rectangle=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Rectangle : public Polygone
+  {
+  public:
+    virtual void affiche() const;
+    virtual double aire() const {
+      return longueur() * largeur();
+    };
+  };
+#+END_SRC
+
+** Classe =Triangle=
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC c++
+  class Triangle : public Polygone
+  {
+  public:
+    virtual void affiche() const;
+    virtual double aire() const {
+      return 0.5 * base() * hauteur();
+    };
+  };
+#+END_SRC
