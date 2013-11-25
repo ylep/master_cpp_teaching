@@ -51,6 +51,7 @@
 - Le destructeur de la classe dérivée est appelé avant celui de la classe de
   base.
 
+
 * Liaison statique
 
 ** Classe =Polygone=
@@ -284,6 +285,10 @@ pointeur du type de base
 
   - La sélection de la méthode se fait lors de l'exécution
 
+#+BEAMER: \pause
+
+_Toute classe supportant le polymorphisme doit avoir un *destructeur virtuel*_
+
 
 * Classes abstraites
 
@@ -312,7 +317,6 @@ pointeur du type de base
 #+BEAMER: \pause
 - La classe ne peut alors pas être instanciée car une méthode manque : elle est
   dite *classe abstraite*.
-
 
 * Classes abstraites
 
