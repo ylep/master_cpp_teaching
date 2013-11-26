@@ -1,12 +1,22 @@
 /README.el
+/slide-style.sty
+/lecture-style.sty
+/org-preamble.sty
 
-*/*.pdf
 */*.tex
+
+*/*.aux
 */*.auxlock
 */*.fdb_latexmk
 */*.fls
+*/*.log
+*/*.nav
+*/*.out
+*/*.pdf
+*/*.pyg
+*/*.snm
+*/*.toc
 */*.vrb
-*/*~
 */latex.d/
 */tikz.d/
 
