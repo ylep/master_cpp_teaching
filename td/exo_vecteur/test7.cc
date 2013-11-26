@@ -12,7 +12,7 @@ int main()
   VecteurEuclidien u(3);
   const Vecteur& uref = u;
 
-  Vecteur v = u;
+  Vecteur v = uref;
 
   cout << "Test 7 réussi !" << endl;
   return EXIT_SUCCESS;
