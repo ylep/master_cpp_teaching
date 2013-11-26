@@ -27,18 +27,6 @@ different directories.
 :PROPERTIES:
 :TANGLE: README.el
 :END:
-** Create/clean directories
-The following code make sure the needed directories are created for export as
-well as for tangling this file
-#+BEGIN_SRC emacs-lisp
-  (defun cpp-create-directories ()
-    (let* ((this-dir (file-name-directory (or load-file-name buffer-file-name))))
-      (progn
-        (make-directory (expand-file-name "doc/stylesheets" this-dir) t)
-        )))
-  (cpp-create-directories)
-#+END_SRC
-
 ** Settings for =org= to =pdf= conversion
 *** Requirements
 #+BEGIN_SRC emacs-lisp
@@ -113,7 +101,7 @@ Only include one default package and remove all the crapppy stuff included by
                '("cpp-slide"
                  "\\documentclass[c]{beamer}
                   [PACKAGES]
-                  \\usepackage[cpp_teaching]{../slide-style}
+                  \\usepackage[cpp_teaching]{slide-style}
                   [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -156,7 +144,7 @@ We also define a new environment for "colored" box
                '("cpp-lecture"
                  "\\documentclass[10pt,a4paper,twoside]{report}
                   [PACKAGES]
-                  \\usepackage[cpp_teaching_lectures]{../lecture-style}
+                  \\usepackage[cpp_teaching_lectures]{lecture-style}
                   [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -170,7 +158,7 @@ We also define a new environment for "colored" box
                '("cpp-class"
                  "\\documentclass[10pt,a4paper]{report}
                   [PACKAGES]
-                  \\usepackage[cpp_teaching_classes]{../lecture-style}
+                  \\usepackage[cpp_teaching_classes]{lecture-style}
                   [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -179,6 +167,13 @@ We also define a new environment for "colored" box
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 *** Define dedicated function for export
+    BUG: when these functions are called in emacs --batch mode, emacs should
+    exit with an appropriate error status so that the Makefile can detect LaTeX
+    compilation failure.
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-remove-logfiles nil)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
   (defun cpp-export-slides ()
     (progn
@@ -209,7 +204,7 @@ We also define a new environment for "colored" box
         pdflatex, or xelatex as appropriate, using latexmk."
      (when (org-export-derived-backend-p backend 'latex)
        (let ((texcmd)))
-       (setq texcmd "latexmk -xelatex -shell-escape %f")
+       (setq texcmd "latexmk -xelatex -shell-escape -halt-on-error %f")
        (setq org-latex-pdf-process (list texcmd))))
   (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
@@ -1107,6 +1102,7 @@ up. Practically, everything can be done within this section.
 *** CSS stylesheets
 **** Main stylesheets
 :PROPERTIES:
+:MKDIRP: yes
 :TANGLE: doc/stylesheets/styles.css
 :END:
 ***** Google fonts
