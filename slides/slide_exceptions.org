@@ -1,0 +1,219 @@
+#+TITLE:  Gestion des erreurs
+#+AUTHOR: Yann Leprince
+#+DATE:   25/11/2013
+#+OPTIONS: toc:nil ^:{}
+#+STARTUP:     beamer
+#+LATEX_CLASS: cpp-slide
+
+* Que faire en cas d'erreur ?
+
+#+BEGIN_SRC c++
+  int main()
+  {
+    Vecteur v(3);
+    std::cout << v.get(5) << std::endl;
+  }
+#+END_SRC
+
+#+BEAMER: \setbeamercovered{invisible}
+#+BEAMER: \pause
+
+- Ignorer l'erreur et laisser le programme continuer
+
+- Quitter brutalement le programme avec un message d'erreur
+
+- Retourner une valeur « sentinelle »
+
+- Signaler l'erreur à l'appelant par une *exception*
+
+
+* Ignorer l'erreur
+
+#+BEGIN_SRC c++
+  double Vecteur::get_unchecked(const unsigned int i) const
+  {
+    return m_table[i];
+  }
+#+END_SRC
+
+- moindre effort
+
+- rapide : pas de test
+
+- comportement imprévisible
+  #+BEAMER: \setbeamercovered{invisible}
+  #+BEAMER: \pause
+  - Erreur de segmentation
+
+  - Introduction de données erronées _➙ GRAVE_
+
+* Quitter le programme
+
+#+BEGIN_SRC c++
+  #include <iostream>
+  #include <cstdlib>
+  double Vecteur::get_abort(const unsigned int i) const
+  {
+    if(i < size())
+      return m_table[i];
+    else {
+      std::cerr << "Dépassement de tableau" << std::endl;
+      std::abort();
+    }
+  }
+#+END_SRC
+
+#+BEAMER: \setbeamercovered{invisible}
+#+BEAMER: \pause
+
+- Évite de poursuivre avec des données erronées
+
+- Ne laisse pas la possibilité de détecter et corriger l'erreur
+
+* Assertions
+
+#+BEGIN_SRC c++
+  #include <cassert>
+  double Vecteur::get_assert(const unsigned int i) const
+  {
+    assert(i < size());
+    return m_table[i];
+  }
+#+END_SRC
+
+- En « mode debug » (par défaut) :
+
+  - effectue le test et quitte le programme si la condition est =false=
+
+- En « mode release » :
+
+  - ne fait rien : le test est ignoré
+
+  - activé par =g++ -DNDEBUG=
+
+* Retourner une valeur « sentinelle »
+
+#+BEGIN_SRC c++
+  double Vecteur::get_sentinel(const unsigned int i,
+                               const double sentinel) const
+  {
+    if(i < size())
+      return m_table[i];
+    else
+      return sentinel;
+  }
+#+END_SRC
+
+#+BEAMER: \setbeamercovered{invisible}
+#+BEAMER: \pause
+
+- Laisse à l'appelant la possibilité de détecter et corriger l'erreur
+
+- Possibilité d'utiliser =NaN= (Not-a-Number) avec =float= ou =double=
+
+- Il n'est pas toujours possible ni pratique de définir une valeur sentinelle :
+
+  - Si une case du tableau contient la valeur sentinelle ?
+
+  - Dans une fonction retournant =void= ?
+
+* Signaler l'erreur par une exception
+
+#+BEGIN_SRC c++
+  #include <stdexcept>
+  double Vecteur::get_exception(const unsigned int i) const
+  {
+    if(i < size())
+      return m_table[i];
+    else
+      throw std::out_of_range();
+  }
+#+END_SRC
+
+- Laisse à l'appelant la possibilité de détecter et corriger l'erreur
+
+- Peut être utilisé quel que soit le contexte
+
+
+* Traitement des exceptions
+
+#+BEGIN_SRC c++
+  #include <stdexcept>
+  double Vecteur::get_exception(const unsigned int i) const
+  {
+    if(i < size())
+      return m_table[i];
+    else
+      throw std::out_of_range("argument beyond vector size");
+  }
+#+END_SRC
+
+#+BEGIN_SRC c++
+  int main()
+  {
+    Vecteur v(3);
+    std::cout << v.get_exception(5) << std::endl;
+  }
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+  terminate called after throwing an instance of 'std::out_of_range'
+    what():  argument beyond vector size
+#+END_EXAMPLE
+
+- Le programme a été arrêté
+
+- L'objet lancé a été affiché
+
+* Traitement des exceptions
+
+#+BEGIN_SRC c++
+  int main()
+  {
+    Vecteur v(3);
+    try
+    {
+      std::cout << v.get_exception(5) << std::endl;
+    }
+    catch(const std::out_of_range&)
+    {
+      std::cout << "Exception attrapée" << std::endl;
+    }
+    std::cout << "Le programme continue..." << std::endl;
+  }
+#+END_SRC
+
+- On peut attraper une exception produite dans un bloc =try=
+
+- Le bloc =catch= correspondant est alors exécuté
+
+* Traitement des exceptions
+
+#+BEGIN_SRC c++
+  try
+  {
+    // Code susceptible de générer des exceptions
+  }
+  catch(const PremierTypeException&)
+  {
+  }
+  catch(const SecondTypeException&)
+  {
+  }
+#+END_SRC
+
+- Si une exception est générée à l'intérieur du bloc =try= :
+
+  - le premier bloc =catch= correspondant est exécuté,
+
+  - puis l'exécution du programme continue normalement.
+
+- Si aucune exception n'est générée, les blocs =catch= sont ignorés.
+
+- L'exception peut être générée n'importe où, y compris par des fonctions
+  appelées indirectement.
+
+- Si une exception n'est pas traitée par un bloc =catch=, elle continue de se
+  propager vers l'appelant.
+
+* Hiérarchie d'exceptions
