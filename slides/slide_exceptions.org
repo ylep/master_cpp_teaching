@@ -323,3 +323,34 @@ Cela introduit de très nombreux points d'interruption :
 - Les techniques permettant de gérer ces cas sont au-delà du cadre de ce cours,
   elles reposent essentiellement sur les « pointeurs intelligents » (/smart
   pointers/).
+
+* Résumé
+
+- Il est bon de vérifier systématiquement la cohérence des informations
+  traitées dans un programme (p. ex. préconditions d'une fonction).
+
+- Pour les tests qui relèvent du débogage les *assertions* sont souvent l'outil
+  adapté :
+
+  #+BEGIN_SRC c++
+    #include <cassert>
+  #+END_SRC
+
+  #+BEGIN_SRC c++
+    assert(i < size());
+  #+END_SRC
+
+- Pour les erreurs pouvant survenir à l'exécution les *exceptions* sont un
+  outil très puissant.
+
+  #+BEGIN_SRC c++
+    throw ExceptionClass(parametres);
+  #+END_SRC
+
+  #+BEGIN_SRC c++
+    try {
+      // code
+    } catch(const ExceptionClass& exc) {
+      // gestion d'exception
+    }
+  #+END_SRC
