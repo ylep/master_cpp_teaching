@@ -327,7 +327,7 @@ Cela introduit de très nombreux points d'interruption :
 * Résumé
 
 - Il est bon de vérifier systématiquement la cohérence des informations
-  traitées dans un programme (p. ex. préconditions d'une fonction).
+  traitées dans un programme (par ex. préconditions d'une fonction).
 
 - Pour les tests qui relèvent du débogage les *assertions* sont souvent l'outil
   adapté :
