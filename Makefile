@@ -39,19 +39,19 @@ pdf: $(files_pdf)
 
 $(slides_pdf): %.pdf: %.org README.el
 	@echo "NOTICE: Exporting $< to PDF..."
-	TEXINPUTS=.:..: $(EMACS) --batch --load=$(lastword $^) \
+	TEXINPUTS=".:..:$$TEXINPUTS" $(EMACS) --batch --load=$(lastword $^) \
 	    --visit "$<" \
 	    --funcall cpp-export-slides
 
 $(lectures_pdf): %.pdf: %.org README.el
 	@echo "NOTICE: Exporting $< to PDF..."
-	TEXINPUTS=.:..: $(EMACS) --batch --load=$(lastword $^) \
+	TEXINPUTS=".:..:$$TEXINPUTS" $(EMACS) --batch --load=$(lastword $^) \
 	    --visit "$<" \
 	    --funcall cpp-export-lectures
 
 $(td_pdf): %.pdf: %.org README.el
 	@echo "NOTICE: Exporting $< to PDF..."
-	TEXINPUTS=.:..: $(EMACS) --batch --load=$(lastword $^) \
+	TEXINPUTS=".:..:$$TEXINPUTS" $(EMACS) --batch --load=$(lastword $^) \
 	    --visit "$<" \
 	    --funcall cpp-export-classes
 
