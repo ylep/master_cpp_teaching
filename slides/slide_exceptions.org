@@ -22,9 +22,11 @@
 
 - Quitter brutalement le programme avec un message d'erreur
 
-- Retourner une valeur « sentinelle »
+- Signaler l'erreur à l'appelant
 
-- Signaler l'erreur à l'appelant par une *exception*
+  - Retourner une valeur « sentinelle »
+
+  - Déclencher une *exception*
 
 
 * Ignorer l'erreur
@@ -45,7 +47,7 @@
   #+BEAMER: \pause
   - Erreur de segmentation
 
-  - Introduction de données erronées _➙ GRAVE_
+  - Introduction de données erronées : _GRAVE_
 
 * Quitter le programme
 
@@ -91,6 +93,8 @@
 
   - activé par =g++ -DNDEBUG=
 
+Attention les assertions ne doivent pas avoir d'effets de bord.
+
 * Retourner une valeur « sentinelle »
 
 #+BEGIN_SRC c++
@@ -111,6 +115,10 @@
 
 - Possibilité d'utiliser =NaN= (Not-a-Number) avec =float= ou =double=
 
+  #+BEGIN_SRC c++
+    std::numeric_limits<double>::quiet_NaN()
+  #+END_SRC
+
 - Il n'est pas toujours possible ni pratique de définir une valeur sentinelle :
 
   - Si une case du tableau contient la valeur sentinelle ?
@@ -126,7 +134,7 @@
     if(i < size())
       return m_table[i];
     else
-      throw std::out_of_range();
+      throw std::out_of_range("vector size exceeded");
   }
 #+END_SRC
 
@@ -139,12 +147,12 @@
 
 #+BEGIN_SRC c++
   #include <stdexcept>
-  double Vecteur::get_exception(const unsigned int i) const
+  double Vecteur::get(const unsigned int i) const
   {
     if(i < size())
       return m_table[i];
     else
-      throw std::out_of_range("argument beyond vector size");
+      throw std::out_of_range("vector size exceeded");
   }
 #+END_SRC
 
@@ -152,13 +160,13 @@
   int main()
   {
     Vecteur v(3);
-    std::cout << v.get_exception(5) << std::endl;
+    std::cout << v.get(5) << std::endl;
   }
 #+END_SRC
 
 #+BEGIN_EXAMPLE
   terminate called after throwing an instance of 'std::out_of_range'
-    what():  argument beyond vector size
+    what():  vector size exceeded
 #+END_EXAMPLE
 
 - Le programme a été arrêté
@@ -173,11 +181,11 @@
     Vecteur v(3);
     try
     {
-      std::cout << v.get_exception(5) << std::endl;
+      std::cout << v.get(5) << std::endl;
     }
-    catch(const std::out_of_range&)
+    catch(const std::out_of_range& exc)
     {
-      std::cout << "Exception attrapée" << std::endl;
+      std::cout << "Exception attrapée : " << exc << std::endl;
     }
     std::cout << "Le programme continue..." << std::endl;
   }
@@ -194,10 +202,10 @@
   {
     // Code susceptible de générer des exceptions
   }
-  catch(const PremierTypeException&)
+  catch(const PremierTypeException& exc)
   {
   }
-  catch(const SecondTypeException&)
+  catch(const SecondTypeException& exc)
   {
   }
 #+END_SRC
@@ -210,10 +218,108 @@
 
 - Si aucune exception n'est générée, les blocs =catch= sont ignorés.
 
+- Si une exception n'est pas traitée par un bloc =catch=, elle continue de se
+  propager.
+
+
+* Propagation des exceptions
+
+Lorsqu'une exception est générée, elle remonte la *pile des appels* jusqu'à ce
+qu'elle soit attrapée.
+
 - L'exception peut être générée n'importe où, y compris par des fonctions
   appelées indirectement.
 
-- Si une exception n'est pas traitée par un bloc =catch=, elle continue de se
-  propager vers l'appelant.
+#+BEGIN_SRC c++
+  void traitement()
+  {
+    Vecteur v(3);
+    v.get(5);
+  }
+  int main()
+  {
+    try {
+      traitement();
+    } catch(const std::out_of_range& exc) {
+      std::cout << "exception attrappée : " << exc << std::endl;
+    }
+  }
+#+END_SRC
 
-* Hiérarchie d'exceptions
+
+* Types d'exceptions
+
+Tout type d'objet peut être utilisé comme une exception.
+
+#+BEAMER: \pause
+
+Cependant il est préférable de s'en tenir à des objets dérivés de la classe
+=std::exception= (=#include <exception>=).
+
+- Un type d'erreur précis par classe ;
+
+- Utiliser éventuellement une hiérarchie à plusieurs niveaux.
+
+
+* Types d'exceptions
+
+À titre d'exemple, voici la hiérarchie d'exceptions de la bibliothèque standard
+\Cpp (=#include <stdexcept>=).
+
+- =std::exception=
+
+  - =std::logic_error : public std::exception=
+
+    - =std::domain_error : public std::logic_error=
+
+    - =std::invalid_argument : public std::logic_error=
+
+    - =std::length_error : public std::logic_error=
+
+    - =std::out_of_range : public std::logic_error=
+
+    - =std::future_error : public std::logic_error=
+
+  - =std::runtime_error : public std::exception=
+
+    - =std::range_error : public std::runtime_error=
+
+    - =std::overflow_error : public std::runtime_error=
+
+    - =std::underflow_error : public std::runtime_error=
+
+    - =std::system_error : public std::runtime_error=
+
+* Programmer en présence d'exceptions
+
+Tout appel de fonction (ou presque) est susceptible de générer des exceptions.
+
+#+BEAMER: \pause
+
+Cela introduit de très nombreux points d'interruption :
+
+#+BEGIN_SRC c++
+  void f()
+  {
+    A* obj_a = new A;
+    B* obj_b = new B;
+
+    ...
+
+    delete obj_b;
+    delete obj_a;
+  }
+#+END_SRC
+
+#+BEAMER: \setbeamercovered{invisible}
+#+BEAMER: \pause
+
+- Si le constructeur de =B= lance une exception, l'objet =obj_a= ne sera jamais
+  libéré.
+
+#+BEAMER: \setbeamercovered{transparent}
+#+BEAMER: \pause
+
+- Les techniques permettant de gérer ces cas sont au-delà du cadre de ce cours,
+  elles reposent essentiellement sur les « pointeurs intelligents » (/smart
+  pointers/).
