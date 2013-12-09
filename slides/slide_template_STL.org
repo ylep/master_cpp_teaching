@@ -255,3 +255,27 @@ mémoire).
 
 - …
 
+
+* Itérateurs et algorithmes
+
+- Tous les conteneurs présentent une interface commune pour parcourir leurs
+  éléments : les *itérateurs* accessibles par =begin()= et =end()=.
+
+- Un itérateur est la généralisation d'un pointeur.
+
+- Les algorithmes de la STL utilisent ces itérateurs et sont donc compatibles
+  avec tout conteneur adapté.
+
+- Exemple : tri d'un tableau
+
+  #+BEGIN_SRC c++
+    #include <algorithm>
+    void tri(std::vector<int>& vecteur)
+    {
+      std::sort(vecteur.begin(), vecteur.end());
+    }
+    void tri(int* debut_tableau, int* fin_tableau)
+    {
+      std::sort(debut_tableau, fin_tableau);
+    }
+  #+END_SRC
