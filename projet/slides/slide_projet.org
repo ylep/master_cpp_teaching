@@ -1,0 +1,230 @@
+#+TITLE:  Présentation des projets
+#+AUTHOR: Xavier Garrido
+#+DATE:   05/12/2013
+#+OPTIONS: toc:nil ^:{}
+#+STARTUP:     beamer
+#+LATEX_CLASS: cpp-slide
+#+LATEX_HEADER: \usepackage{tabularx}
+#+LATEX_HEADER_EXTRA: \pgfdeclarelayer{background}
+#+LATEX_HEADER_EXTRA: \pgfdeclarelayer{foreground}
+#+LATEX_HEADER_EXTRA: \pgfsetlayers{background,main,foreground}
+
+* Organisation du second semestre
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \begin{tikzpicture}
+      \color{blue}
+      \node (tbl) {
+        \begin{tabularx}{\textwidth}{rXr}
+          Aujourd'hui     & Présentation des sujets \\[2ex]
+          20 -- 24 Janvier & Indication aux enseignants du projet choisi (via formulaire web) \\[2ex]
+          10 -- 14 Mars    & Remise des programmes \textbf{par mail} à \\
+          &\href{xavier.garrido@u-psud.fr}{\color{blue}\ding{41}~xavier.garrido@u-psud.fr} ou\\
+          &\href{yann.leprince-psud.fr}{\color{blue}\ding{41}~yann.leprince-psud.fr} \\
+          & Remise des rapports au Secrétariat \\[2ex]
+          %% 19 Mars à 12h     & Affichage des plannings de soutenances \\[2ex]
+          31 Mars -- 4 Avril     & Soutenances de projet informatique \\[2ex]
+      \end{tabularx}};
+      \begin{pgfonlayer}{background}
+        \draw[rounded corners, top color=blue!20,draw=white]
+        ($(tbl.north east)-(0.0,0.0)$) rectangle ($(tbl.south west)+(0.13,0.2)$);
+      \end{pgfonlayer}
+    \end{tikzpicture}
+  \end{center}
+#+END_SRC
+
+* Présentation des projets
+
+- *Méthode d'optimisation : le recuit simulé*
+- *L'Observatoire Pierre Auger*
+- Le jeu d'échec
+- Traitement d'images
+
+* Méthode d'optimisation : le recuit simulé
+
+- Historiquement, le nom et l'inspiration proviennent du recuit en métallurgie
+
+#+BEGIN_CENTER
+[[file:./figures/heat-0.png]]
+#+END_CENTER
+* Méthode d'optimisation : le recuit simulé
+
+- Historiquement, le nom et l'inspiration proviennent du recuit en métallurgie
+- Physiquement, le mécanisme naturel de minimisation de l'énergie repose sur la
+  distribution de probabilité de Boltzmann
+
+  #+BEGIN_SRC latex
+    \begin{equation*}
+      \structure{p\,(E\,)\propto\exp\left(-\frac{\Delta E}{kT}\right)}
+    \end{equation*}
+  #+END_SRC
+
+* Méthode d'optimisation : le recuit simulé
+
+- Historiquement, le nom et l'inspiration proviennent du recuit en métallurgie
+- Physiquement, le mécanisme naturel de minimisation de l'énergie repose sur la
+  distribution de probabilité de Boltzmann
+- Mathématiquement, le recuit simulé est un algorithme d'optimisation /i.e./ de
+  recherche de minima d'une fonction donnée
+
+* Méthode d'optimisation : le recuit simulé
+
+#+BEAMER: \vspace{-0.5cm}
+#+BEGIN_CENTER
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:./figures/sam_0.pdf]]
+#+END_CENTER
+* Méthode d'optimisation : le recuit simulé
+
+#+BEAMER: \vspace{-0.5cm}
+#+BEGIN_CENTER
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:./figures/sam_1.pdf]]
+#+END_CENTER
+* Méthode d'optimisation : le recuit simulé
+
+#+BEAMER: \vspace{-0.5cm}
+#+BEGIN_CENTER
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:./figures/sam_2.pdf]]
+#+END_CENTER
+* Méthode d'optimisation : le recuit simulé
+
+#+BEAMER: \vspace{-0.5cm}
+#+BEGIN_CENTER
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:./figures/sam_3.pdf]]
+#+END_CENTER
+* Méthode d'optimisation : le recuit simulé
+
+- Domaine d'application : problème multi-variables
+  - informatique,
+  - génétique,
+  - physique (astrophysique, physique des particules...)
+* Objectifs du projet
+
+- Régression linéaire, parabolique, études en fonction de l'incertitude sur les
+  données expérimentales...
+- Résolution du problème du voyageur de commerce
+
+#+ATTR_LATEX: :options [][][\centering]
+#+BEGIN_CBOX
+[[http://www-i1.informatik.rwth-aachen.de/~algorithmus/algo41.php][*http://www-i1.informatik.rwth-aachen.de/...*]]\\
+[[http://interstices.info/jcms/c_43811/le-recuit-simule][*http://interstices.info/...*]]
+#+END_CBOX
+
+* Setting template background                                    :background:
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+#+BEAMER: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{figures/auger-0}}
+#+BEAMER: \setbeamertemplate{footline}[default]
+
+* L'Observatoire Pierre Auger
+
+#+ATTR_LATEX: :options [5][lbtuc][\centering][0.5][12.5]
+#+BEGIN_CBOX
+\scriptsize L'Observatoire Pierre Auger est situé à Malargüe (Argentine) et est
+_le premier détecteur hybride_ construit sur une surface de _3000 km^{2}_
+#+END_CBOX
+* L'Observatoire Pierre Auger
+
+#+BEGIN_SRC latex
+  \begin{textblock}{5}(4,6.6)
+    \begin{tikzpicture}
+      \node[rectangle,
+        color=red,fill=red,fill opacity=0.3,
+        line width=1.5pt,
+        draw, rounded corners,
+        text width=0.5cm,
+        text height=0.5cm] {};
+    \end{tikzpicture}
+    \end{textblock}
+    \begin{textblock}{5}(5.55,11.6)
+      \begin{tikzpicture}
+        \node[rectangle,
+          color=red,fill=red,fill opacity=0.3,
+          line width=1.5pt,
+          draw, rounded corners,
+          text width=0.5cm,
+          text height=0.5cm] {};
+      \end{tikzpicture}
+    \end{textblock}
+    \begin{textblock}{5}(12.4,10.3)
+      \begin{tikzpicture}
+        \node[rectangle,
+          color=red,fill=red,fill opacity=0.3,
+          line width=1.5pt,
+          draw, rounded corners,
+          text width=0.5cm,
+          text height=0.5cm] {};
+      \end{tikzpicture}
+    \end{textblock}
+    \begin{textblock}{5}(10.2,5.7)
+      \begin{tikzpicture}
+        \node[rectangle,
+          color=red,fill=red,fill opacity=0.3,
+          line width=1.5pt,
+          draw, rounded corners,
+          text width=0.5cm,
+          text height=0.5cm] {};
+      \end{tikzpicture}
+    \end{textblock}
+#+END_SRC
+
+#+ATTR_LATEX: :options [5][lrtuc][\centering][4.5][2.5]
+#+BEGIN_CBOX
+\scriptsize _24 télescopes de fluorescence_ détectant la lumière de
+désexcitation du N_{2} (300 -- 400\nbsp{}nm) émise au passage des $e^\pm$ de la
+gerbe \\ _\rightarrow profil longitudinal_
+#+END_CBOX
+* L'Observatoire Pierre Auger
+
+#+ATTR_LATEX: :options [5][lrtuc][\centering][4.5][2.5]
+#+BEGIN_CBOX
+\scriptsize _24 télescopes de fluorescence_ détectant la lumière de
+désexcitation du N_{2} (300 -- 400\nbsp{}nm) émise au passage des $e^\pm$ de
+la gerbe \\ _\rightarrow profil longitudinal_
+#+END_CBOX
+
+#+ATTR_LATEX: :options [6][lrtuc][\centering][3][10.5]
+#+BEGIN_CBOX
+\scriptsize _1600 cuves d'eau_ placées à 1500 m les unes des autres et chargées
+de détecter les particules secondaires via _la production de lumière Cherenkov_
+\\ _\rightarrow profil latéral_
+#+END_CBOX
+* Setting template background                                    :background:
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+#+BEAMER: \usebackgroundtemplate{}
+#+BEAMER: \setbeamertemplate{footline}[cbfootline]
+
+* L'Observatoire Pierre Auger
+
+#+BEAMER: \vspace{-2.5cm}
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:./figures/AugerEvent-1.pdf]]
+
+* L'Observatoire Pierre Auger
+
+#+ATTR_LATEX: :options [6][lwuc][\centering][1][4]
+#+BEGIN_CBOX
+[[file:./figures/AugerEvent-1.pdf]]
+#+END_CBOX
+
+#+ATTR_LATEX: :options [6][lwuc][\centering][8][2]
+#+BEGIN_CBOX
+#+ATTR_LATEX: :width 1.25\linewidth
+[[file:./figures/gh.pdf]]
+
+#+ATTR_LATEX: :width 1.25\linewidth
+[[file:./figures/ldf.pdf]]
+#+END_CBOX
+
+* Objectifs du projet
+
+- Deux projets de simulation/reconstruction de gerbes atmo. :
+  1. Reconstruction latérale du signal (SD)
+  2. Reconstruction longitudinale (FD)

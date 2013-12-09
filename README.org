@@ -211,7 +211,7 @@ We also define a new environment for "colored" box
 *** LaTeX stylesheets
 **** Org preamble
 :PROPERTIES:
-:TANGLE:   org-preamble.sty
+:TANGLE: org-preamble.sty
 :END:
 
 This section defines =org= preamble and settings for documents exported from
@@ -1639,7 +1639,8 @@ up. Practically, everything can be done within this section.
 
 **** Org source code styles
 :PROPERTIES:
-:TANGLE:   doc/stylesheets/org-pygments.css
+:MKDIRP: yes
+:TANGLE: doc/stylesheets/org-pygments.css
 :END:
 
 #+BEGIN_SRC css
