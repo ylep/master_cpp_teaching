@@ -1,14 +1,14 @@
-#+TITLE:  Patrons et bibliothèque standard
+#+TITLE:  Programmation générique et bibliothèque standard
 #+AUTHOR: Xavier Garrido
 #+DATE:   01/10/2013
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP:     beamer
 #+LATEX_CLASS: cpp-slide
 
-* Notion de patron (=template=)
+* Programmation générique, notion de patron (=template=)
 
-Un *patron* (=template=) permet de définir d'un seul coup un ensemble de
-fonctions ou de classes qui partagent une implémentation commune.
+Un *patron* (=template=) permet de définir en une fois un ensemble de fonctions
+ou de classes qui partagent une implémentation commune.
 
 
 * Illustration d'un patron de fonction
@@ -45,7 +45,7 @@ Ces trois fonctions s'écrivent de la même manière.
 #+END_SRC
 
 - Lors de la compilation, suivant le type des arguments fournis, le compilateur
-  implémente automatiquement la variante requise.
+  instantie automatiquement la variante requise.
 
 - Il est possible de forcer l'utilisation d'une variante en spécifiant par
   exemple =min<float>=.
@@ -108,7 +108,7 @@ ensemble de conteneurs* exploitant très largement les mécanismes du \Cpp
 
 - la surdéfinition des opérateurs,
 
-- les patrons ou templates.
+- la programmation générique (par patrons, /templates/).
 
 La STL fournit par ailleurs des algorithmes (optimisés) permettant la
 manipulation aisée de ces nouveaux containers (initialisation, recherche de
@@ -173,7 +173,7 @@ mémoire).
 - L'avantage majeur de la classe =vector= tient en trois points :
 
   1. la manipulation de n'importe quel type de données grâce à son
-     implémentation par patron,
+     implémentation générique,
 
   2. la réallocation automatique de l'espace mémoire nécessaire via la méthode
      =push_back=,
@@ -189,7 +189,7 @@ mémoire).
 
   int main()
   {
-    // Déclaration d'un vecteur d'entiers de taille non connue
+    // Déclaration d'un vecteur d'entiers vide (de taille zéro)
     std::vector<int> vector1;
 
     // Ajout de trois elements
@@ -239,7 +239,7 @@ mémoire).
 
 * Les autres conteneurs
 
-- =std::list= représente une *liste chaînée* ;
+- =std::list= représente une *liste chaînée* ;
 
 - =std::set= représente un *ensemble* au sens mathématique : chaque élément ne
   peut apparaître qu'une fois ;
@@ -259,7 +259,7 @@ mémoire).
 * Itérateurs et algorithmes
 
 - Tous les conteneurs présentent une interface commune pour parcourir leurs
-  éléments : les *itérateurs* accessibles par =begin()= et =end()=.
+  éléments : les *itérateurs*, accessibles par =begin()= et =end()=.
 
 - Un itérateur est la généralisation d'un pointeur.
 
@@ -279,3 +279,24 @@ mémoire).
       std::sort(debut_tableau, fin_tableau);
     }
   #+END_SRC
+
+
+* Conclusion
+
+- Notions centrales de la programmation orientée objet
+
+  - Classe, objet
+
+  - Encapsulation
+
+  - Héritage, polymorphisme
+
+- Outils accompagnant la programmation orientée objet
+
+  - Exceptions
+
+  - Programmation générique
+
+- Complexités spécifiques au \Cpp
+
+  - Gestion de la mémoire (allocation dynamique, pointeurs)
