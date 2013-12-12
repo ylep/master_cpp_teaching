@@ -1,0 +1,12 @@
+*.aux
+*.auxlock
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.pdf
+*.pyg
+*.snm
+*.toc
+*.vrb
