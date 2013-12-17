@@ -3,22 +3,26 @@
 /lecture-style.sty
 /org-preamble.sty
 
-*/*.tex
+/lectures/*.pdf
+/slides/*.pdf
+/td/*.pdf
 
-*/*.aux
-*/*.auxlock
-*/*.fdb_latexmk
-*/*.fls
-*/*.log
-*/*.nav
-*/*.out
-*/*.pdf
-*/*.pyg
-*/*.snm
-*/*.toc
-*/*.vrb
-*/latex.d/
-*/tikz.d/
+*.aux
+*.log
+*.nav
+*.out
+*.pyg
+*.snm
+*.toc
+# *.vrb
+*.tex
+*.auxlock
+*.fdb_latexmk
+*.fls
+*.vrb
+*~
+*latex.d/
+*tikz.d/
 
 /doc/
 /notes/

@@ -1,5 +1,11 @@
 \begin{tikzpicture}[y=-1cm]
-\sf
+  \sf
+  \definecolor{red}{RGB}{221,42,43}
+  \definecolor{green}{RGB}{132,184,24}
+  \definecolor{blue}{RGB}{0,72,112}
+  \definecolor{orange}{RGB}{192,128,64}
+  \definecolor{gray}{RGB}{107,108,110}
+
 \definecolor{penColor}{gray}{0.74902}
 \draw[thick,penColor] (0.03387,27.90613) -- (1.83515,26.10697);
 \draw[thick,penColor] (0.03387,27.90613) -- (9.03393,27.90613);
@@ -30,6 +36,18 @@
 \path[fill=fillColor] (7.87188,27.05312) -- (8.13435,27.00655) -- (7.90152,26.87743) -- (7.98618,26.98115);
 \path[fill=green] (2.73473,26.10697) -- (7.98618,26.98115);
 \draw[thick,penColor] (2.73473,26.10697) -- (7.98618,26.98115);
+
+\path (10.7,26) node[text=penColor,anchor=base west, rotate=79] {\scriptsize Plan de détection de la gerbe (SDP)};
+\path (7.3,27.8) node[text=penColor,anchor=base west] {\scriptsize Plan horizontal};
+\path (3,22.1) node[text=red,anchor=base west, rotate=-35] {\scriptsize axe de la gerbe};
+\path (8.8,25.8) node[text=penColor,anchor=base west] {\normalsize $\chi_0$};
+\path (4.8,25.8) node[text=penColor,anchor=base west] {\normalsize $\chi_i$};
+\path (4.8,23.2) node[text=penColor,anchor=base west] {\normalsize $T_0$};
+\path (7.2,24.8) node[text=penColor,anchor=base west] {\normalsize $t_i$};
+\path (3.5,24.3) node[text=penColor,anchor=base west] {\normalsize $R_p$};
+\path (5,26.9) node[text=penColor,anchor=base west] {\normalsize $R$};
+\path (2.4,26.5) node[text=green,anchor=base west] {\normalsize FD};
+\path (8.4,27) node[text=green,anchor=base west] {\normalsize SD};
 
 \end{tikzpicture}%
 
